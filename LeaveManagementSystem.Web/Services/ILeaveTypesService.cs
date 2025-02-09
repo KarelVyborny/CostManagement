@@ -5,11 +5,11 @@ namespace CostManagementSystem.Web.Services
     public interface ILeaveTypesService
     {
         Task<bool> CheckIfLeaveTypeNameExists(string name);
-        Task<bool> CheckIfLeaveTypeNameExistsForEdit(LeaveTypeEditVM leaveTypeEdit);
-        Task Create(LeaveTypeCreateVM model);
-        Task Edit(LeaveTypeEditVM model);
+        Task<bool> CheckIfLeaveTypeNameExistsForEdit(CostTypeEditVM leaveTypeEdit);
+        Task Create(CostTypeCreateVM model);
+        Task Edit(CostTypeEditVM model);
         Task<T?> Get<T>(int id) where T : class;
-        Task<List<LeaveTypeReadOnlyVM>> GetAll();
+        Task<List<CostTypeReadOnlyVM>> GetAll();
         bool LeaveTypeExists(int id);
         Task Remove(int id);
     }

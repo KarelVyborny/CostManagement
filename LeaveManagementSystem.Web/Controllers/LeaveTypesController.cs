@@ -25,7 +25,7 @@ namespace CostManagementSystem.Web.Controllers
             {
                 return NotFound();
             }
-            var leaveType = await _leaveTypesService.Get<LeaveTypeReadOnlyVM>(id.Value);
+            var leaveType = await _leaveTypesService.Get<CostTypeReadOnlyVM>(id.Value);
             if (leaveType == null)
             {
                 return NotFound();
@@ -44,7 +44,7 @@ namespace CostManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(LeaveTypeCreateVM leaveTypeCreate)
+        public async Task<IActionResult> Create(CostTypeCreateVM leaveTypeCreate)
         {
             // Adding custom validation and model state error
             if (await _leaveTypesService.CheckIfLeaveTypeNameExists(leaveTypeCreate.Name))
@@ -68,7 +68,7 @@ namespace CostManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var leaveType = await _leaveTypesService.Get<LeaveTypeEditVM>(id.Value);
+            var leaveType = await _leaveTypesService.Get<CostTypeEditVM>(id.Value);
             if (leaveType == null)
             {
                 return NotFound();
@@ -81,7 +81,7 @@ namespace CostManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, LeaveTypeEditVM leaveTypeEdit)
+        public async Task<IActionResult> Edit(int id, CostTypeEditVM leaveTypeEdit)
         {
             if (id != leaveTypeEdit.Id)
             {
@@ -125,7 +125,7 @@ namespace CostManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var leaveType = await _leaveTypesService.Get<LeaveTypeReadOnlyVM>(id.Value);
+            var leaveType = await _leaveTypesService.Get<CostTypeReadOnlyVM>(id.Value);
             if (leaveType == null)
             {
                 return NotFound();

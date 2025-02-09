@@ -1,4 +1,4 @@
-﻿@model LeaveTypeEditVM
+﻿@model CostTypeEditVM
 
 @{
     ViewData["Title"] = "Edit Leave Type";
@@ -18,7 +18,7 @@
             </div>
             <br/>
             <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
+                <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>

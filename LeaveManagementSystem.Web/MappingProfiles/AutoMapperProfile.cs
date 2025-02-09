@@ -8,10 +8,10 @@ namespace CostManagementSystem.Web.MappingProfiles
     {
         public AutoMapperProfile() 
         {
-            CreateMap<Cost, LeaveTypeReadOnlyVM>();
+            CreateMap<Cost, CostTypeReadOnlyVM>();
             //.ForMember(dest => dest.Days, opt => opt.MapFrom(src => src.Amount));
-            CreateMap<LeaveTypeCreateVM, Cost>();
-            CreateMap<LeaveTypeEditVM, Cost>().ReverseMap();
+            CreateMap<CostTypeCreateVM, Cost>();
+            CreateMap<CostTypeEditVM, Cost>().ReverseMap();
         }
     }
 }

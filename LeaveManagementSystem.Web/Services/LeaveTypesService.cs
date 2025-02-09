@@ -7,12 +7,12 @@ namespace CostManagementSystem.Web.Services;
 
 public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) : ILeaveTypesService
 {
-    public async Task<List<LeaveTypeReadOnlyVM>> GetAll()
+    public async Task<List<CostTypeReadOnlyVM>> GetAll()
     {
         // var data = SELECT * FROM LeaveTypes
         var data = await _context.LeaveTypes.ToListAsync();
         // convert the datamodel into a view model - Use AutoMapper
-        var viewData = _mapper.Map<List<LeaveTypeReadOnlyVM>>(data);
+        var viewData = _mapper.Map<List<CostTypeReadOnlyVM>>(data);
         return viewData;
     }
 
@@ -38,14 +38,14 @@ public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) :
         }
     }
 
-    public async Task Edit(LeaveTypeEditVM model)
+    public async Task Edit(CostTypeEditVM model)
     {
         var leaveType = _mapper.Map<Cost>(model);
         _context.Update(leaveType);
         await _context.SaveChangesAsync();
     }
 
-    public async Task Create(LeaveTypeCreateVM model)
+    public async Task Create(CostTypeCreateVM model)
     {
         var leaveType = _mapper.Map<Cost>(model);
         _context.Add(leaveType);
@@ -64,7 +64,7 @@ public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) :
         return await _context.LeaveTypes.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName));
     }
 
-    public async Task<bool> CheckIfLeaveTypeNameExistsForEdit(LeaveTypeEditVM leaveTypeEdit)
+    public async Task<bool> CheckIfLeaveTypeNameExistsForEdit(CostTypeEditVM leaveTypeEdit)
     {
         var lowercaseName = leaveTypeEdit.Name.ToLower();
         return await _context.LeaveTypes.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName)
