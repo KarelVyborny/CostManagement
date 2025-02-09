@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LeaveManagementSystem.Web.Models.LeaveTypes
+namespace CostManagementSystem.Web.Models.LeaveTypes
 {
     public class LeaveTypeEditVM : BaseLeaveTypeVM
     {
@@ -11,6 +11,6 @@ namespace LeaveManagementSystem.Web.Models.LeaveTypes
         [Required]
         [Range(1, 90)]
         [Display(Name = "Maximum Allocation of Days")]
-        public int NumberOfDays { get; set; }
+        public int Amount { get; set; }
     }
 }

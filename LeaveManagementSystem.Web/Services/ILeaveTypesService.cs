@@ -1,6 +1,6 @@
-﻿using LeaveManagementSystem.Web.Models.LeaveTypes;
+﻿using CostManagementSystem.Web.Models.LeaveTypes;
 
-namespace LeaveManagementSystem.Web.Services
+namespace CostManagementSystem.Web.Services
 {
     public interface ILeaveTypesService
     {

@@ -1,7 +1,7 @@
-﻿using LeaveManagementSystem.Web.Models;
+﻿using CostManagementSystem.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LeaveManagementSystem.Web.Controllers
+namespace CostManagementSystem.Web.Controllers
 {
     public class TestController : Controller
     {

@@ -1,5 +1,5 @@
-using LeaveManagementSystem.Web.Data;
-using LeaveManagementSystem.Web.Services;
+using CostManagementSystem.Web.Data;
+using CostManagementSystem.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

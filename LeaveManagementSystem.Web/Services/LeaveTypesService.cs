@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using LeaveManagementSystem.Web.Data;
-using LeaveManagementSystem.Web.Models.LeaveTypes;
+using CostManagementSystem.Web.Data;
+using CostManagementSystem.Web.Models.LeaveTypes;
 using Microsoft.EntityFrameworkCore;
 
-namespace LeaveManagementSystem.Web.Services;
+namespace CostManagementSystem.Web.Services;
 
 public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) : ILeaveTypesService
 {
@@ -40,14 +40,14 @@ public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) :
 
     public async Task Edit(LeaveTypeEditVM model)
     {
-        var leaveType = _mapper.Map<LeaveType>(model);
+        var leaveType = _mapper.Map<Cost>(model);
         _context.Update(leaveType);
         await _context.SaveChangesAsync();
     }
 
     public async Task Create(LeaveTypeCreateVM model)
     {
-        var leaveType = _mapper.Map<LeaveType>(model);
+        var leaveType = _mapper.Map<Cost>(model);
         _context.Add(leaveType);
         await _context.SaveChangesAsync();
     }

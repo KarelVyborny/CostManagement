@@ -1,4 +1,4 @@
-﻿namespace LeaveManagementSystem.Web.Models.LeaveTypes
+﻿namespace CostManagementSystem.Web.Models.LeaveTypes
 {
     public abstract class BaseLeaveTypeVM
     {

@@ -1,4 +1,4 @@
-namespace LeaveManagementSystem.Web.Models
+namespace CostManagementSystem.Web.Models
 {
     public class ErrorViewModel
     {

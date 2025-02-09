@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using LeaveManagementSystem.Web.Data;
-using LeaveManagementSystem.Web.Models.LeaveTypes;
-using LeaveManagementSystem.Web.Services;
+using CostManagementSystem.Web.Data;
+using CostManagementSystem.Web.Models.LeaveTypes;
+using CostManagementSystem.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LeaveManagementSystem.Web.Controllers
+namespace CostManagementSystem.Web.Controllers
 {
     public class LeaveTypesController(ILeaveTypesService _leaveTypesService) : Controller
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LeaveManagementSystem.Web.Data
+namespace CostManagementSystem.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -10,6 +10,6 @@ namespace LeaveManagementSystem.Web.Data
         {
         }
 
-        public DbSet<LeaveType> LeaveTypes { get; set; }
+        public DbSet<Cost> LeaveTypes { get; set; }
     }
 }

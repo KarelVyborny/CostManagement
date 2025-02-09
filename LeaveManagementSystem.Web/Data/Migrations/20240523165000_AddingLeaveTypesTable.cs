@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace LeaveManagementSystem.Web.Data.Migrations
+namespace CostManagementSystem.Web.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddingLeaveTypesTable : Migration
@@ -17,7 +17,7 @@ namespace LeaveManagementSystem.Web.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(150)", nullable: false),
-                    NumberOfDays = table.Column<int>(type: "int", nullable: false)
+                    Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
