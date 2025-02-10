@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostTypes;
+using CostManagementSystem.Web.Models.Cost;
 
 namespace CostManagementSystem.Web.MappingProfiles
 {

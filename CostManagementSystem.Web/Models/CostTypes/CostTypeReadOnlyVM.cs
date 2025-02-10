@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CostManagementSystem.Web.Models.CostTypes
+namespace CostManagementSystem.Web.Models.Cost
 {
     public class CostTypeReadOnlyVM : BaseCostTypeVM
     {

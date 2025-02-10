@@ -1,8 +1,8 @@
-﻿using CostManagementSystem.Web.Models.CostTypes;
+﻿using CostManagementSystem.Web.Models.Cost;
 
 namespace CostManagementSystem.Web.Services
 {
-    public interface ICostTypesService
+    public interface ICostService
     {
         Task<bool> CheckIfLeaveTypeNameExists(string name);
         Task<bool> CheckIfLeaveTypeNameExistsForEdit(CostTypeEditVM leaveTypeEdit);

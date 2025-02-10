@@ -1,4 +1,4 @@
-﻿namespace CostManagementSystem.Web.Models.CostTypes
+﻿namespace CostManagementSystem.Web.Models.Cost
 {
     public abstract class BaseCostTypeVM
     {
