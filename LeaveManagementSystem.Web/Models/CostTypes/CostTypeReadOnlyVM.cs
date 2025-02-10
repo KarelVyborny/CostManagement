@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CostManagementSystem.Web.Models.LeaveTypes
+namespace CostManagementSystem.Web.Models.CostTypes
 {
     public class CostTypeReadOnlyVM : BaseLeaveTypeVM
     {

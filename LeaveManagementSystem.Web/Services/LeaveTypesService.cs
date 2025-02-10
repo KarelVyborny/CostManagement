@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.LeaveTypes;
+using CostManagementSystem.Web.Models.CostTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace CostManagementSystem.Web.Services;
 
-public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) : ILeaveTypesService
+public class CostTypesService(ApplicationDbContext _context, IMapper _mapper) : ICostTypesService
 {
     public async Task<List<CostTypeReadOnlyVM>> GetAll()
     {
-        // var data = SELECT * FROM LeaveTypes
-        var data = await _context.LeaveTypes.ToListAsync();
+        // var data = SELECT * FROM CostTypes
+        var data = await _context.CostTypes.ToListAsync();
         // convert the datamodel into a view model - Use AutoMapper
         var viewData = _mapper.Map<List<CostTypeReadOnlyVM>>(data);
         return viewData;
@@ -18,7 +18,7 @@ public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) :
 
     public async Task<T?> Get<T>(int id) where T : class
     {
-        var data = await _context.LeaveTypes.FirstOrDefaultAsync(x => x.Id == id);
+        var data = await _context.CostTypes.FirstOrDefaultAsync(x => x.Id == id);
         if (data == null)
         {
             return null;
@@ -30,7 +30,7 @@ public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) :
 
     public async Task Remove(int id)
     {
-        var data = await _context.LeaveTypes.FirstOrDefaultAsync(x => x.Id == id);
+        var data = await _context.CostTypes.FirstOrDefaultAsync(x => x.Id == id);
         if (data != null)
         {
             _context.Remove(data);
@@ -55,19 +55,19 @@ public class LeaveTypesService(ApplicationDbContext _context, IMapper _mapper) :
 
     public bool LeaveTypeExists(int id)
     {
-        return _context.LeaveTypes.Any(e => e.Id == id);
+        return _context.CostTypes.Any(e => e.Id == id);
     }
 
     public async Task<bool> CheckIfLeaveTypeNameExists(string name)
     {
         var lowercaseName = name.ToLower();
-        return await _context.LeaveTypes.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName));
+        return await _context.CostTypes.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName));
     }
 
     public async Task<bool> CheckIfLeaveTypeNameExistsForEdit(CostTypeEditVM leaveTypeEdit)
     {
         var lowercaseName = leaveTypeEdit.Name.ToLower();
-        return await _context.LeaveTypes.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName)
+        return await _context.CostTypes.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName)
             && q.Id != leaveTypeEdit.Id);
     }
 }

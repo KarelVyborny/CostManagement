@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.LeaveTypes;
+using CostManagementSystem.Web.Models.CostTypes;
 
 namespace CostManagementSystem.Web.MappingProfiles
 {

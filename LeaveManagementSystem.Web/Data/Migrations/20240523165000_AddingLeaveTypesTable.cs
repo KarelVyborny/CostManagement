@@ -5,13 +5,13 @@
 namespace CostManagementSystem.Web.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddingLeaveTypesTable : Migration
+    public partial class AddingCostTypesTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "LeaveTypes",
+                name: "CostTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace CostManagementSystem.Web.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LeaveTypes", x => x.Id);
+                    table.PrimaryKey("PK_CostTypes", x => x.Id);
                 });
         }
 
@@ -29,7 +29,7 @@ namespace CostManagementSystem.Web.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LeaveTypes");
+                name: "CostTypes");
         }
     }
 }
