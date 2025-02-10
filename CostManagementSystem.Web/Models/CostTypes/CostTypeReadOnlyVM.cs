@@ -2,7 +2,7 @@
 
 namespace CostManagementSystem.Web.Models.CostTypes
 {
-    public class CostTypeReadOnlyVM : BaseLeaveTypeVM
+    public class CostTypeReadOnlyVM : BaseCostTypeVM
     {
         public string Name { get; set; } = string.Empty;
         

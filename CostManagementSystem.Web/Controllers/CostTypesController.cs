@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostTypes;
+﻿using CostManagementSystem.Web.Models.CostTypes;
 using CostManagementSystem.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

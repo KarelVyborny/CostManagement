@@ -2,7 +2,7 @@
 
 namespace CostManagementSystem.Web.Models.CostTypes
 {
-    public class CostTypeEditVM : BaseLeaveTypeVM
+    public class CostTypeEditVM : BaseCostTypeVM
     {
         [Required]
         [Length(4, 150, ErrorMessage = "You have violated the length requirements")]
