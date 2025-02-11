@@ -2,7 +2,7 @@
 
 namespace CostManagementSystem.Web.Models.Cost
 {
-    public class CostTypeCreateVM
+    public class CostCreateVM
     {
         [Required]
         [Length(4, 150, ErrorMessage = "You have violated the length requirements")]

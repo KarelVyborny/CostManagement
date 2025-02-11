@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CostManagementSystem.Web.Services;
 
-public class CostService(ApplicationDbContext _context, IMapper _mapper) : ICostService
+public class CostsService(ApplicationDbContext _context, IMapper _mapper) : ICostsService
 {
-    public async Task<List<CostTypeReadOnlyVM>> GetAll()
+    public async Task<List<CostReadOnlyVM>> GetAll()
     {
         // var data = SELECT * FROM Cost
         var data = await _context.Cost.ToListAsync();
         // convert the datamodel into a view model - Use AutoMapper
-        var viewData = _mapper.Map<List<CostTypeReadOnlyVM>>(data);
+        var viewData = _mapper.Map<List<CostReadOnlyVM>>(data);
         return viewData;
     }
 
@@ -38,14 +38,14 @@ public class CostService(ApplicationDbContext _context, IMapper _mapper) : ICost
         }
     }
 
-    public async Task Edit(CostTypeEditVM model)
+    public async Task Edit(CostEditVM model)
     {
         var leaveType = _mapper.Map<Cost>(model);
         _context.Update(leaveType);
         await _context.SaveChangesAsync();
     }
 
-    public async Task Create(CostTypeCreateVM model)
+    public async Task Create(CostCreateVM model)
     {
         var leaveType = _mapper.Map<Cost>(model);
         _context.Add(leaveType);
@@ -64,7 +64,7 @@ public class CostService(ApplicationDbContext _context, IMapper _mapper) : ICost
         return await _context.Cost.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName));
     }
 
-    public async Task<bool> CheckIfLeaveTypeNameExistsForEdit(CostTypeEditVM leaveTypeEdit)
+    public async Task<bool> CheckIfLeaveTypeNameExistsForEdit(CostEditVM leaveTypeEdit)
     {
         var lowercaseName = leaveTypeEdit.Name.ToLower();
         return await _context.Cost.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName)
