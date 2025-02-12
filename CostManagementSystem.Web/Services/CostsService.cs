@@ -10,7 +10,7 @@ public class CostsService(ApplicationDbContext _context, IMapper _mapper) : ICos
     public async Task<List<CostReadOnlyVM>> GetAll()
     {
         // var data = SELECT * FROM Cost
-        var data = await _context.Cost.ToListAsync();
+        var data = await _context.Costs.ToListAsync();
         // convert the datamodel into a view model - Use AutoMapper
         var viewData = _mapper.Map<List<CostReadOnlyVM>>(data);
         return viewData;
@@ -18,7 +18,7 @@ public class CostsService(ApplicationDbContext _context, IMapper _mapper) : ICos
 
     public async Task<T?> Get<T>(int id) where T : class
     {
-        var data = await _context.Cost.FirstOrDefaultAsync(x => x.Id == id);
+        var data = await _context.Costs.FirstOrDefaultAsync(x => x.Id == id);
         if (data == null)
         {
             return null;
@@ -30,7 +30,7 @@ public class CostsService(ApplicationDbContext _context, IMapper _mapper) : ICos
 
     public async Task Remove(int id)
     {
-        var data = await _context.Cost.FirstOrDefaultAsync(x => x.Id == id);
+        var data = await _context.Costs.FirstOrDefaultAsync(x => x.Id == id);
         if (data != null)
         {
             _context.Remove(data);
@@ -55,19 +55,19 @@ public class CostsService(ApplicationDbContext _context, IMapper _mapper) : ICos
 
     public bool LeaveTypeExists(int id)
     {
-        return _context.Cost.Any(e => e.Id == id);
+        return _context.Costs.Any(e => e.Id == id);
     }
 
     public async Task<bool> CheckIfLeaveTypeNameExists(string name)
     {
         var lowercaseName = name.ToLower();
-        return await _context.Cost.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName));
+        return await _context.Costs.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName));
     }
 
     public async Task<bool> CheckIfLeaveTypeNameExistsForEdit(CostEditVM leaveTypeEdit)
     {
         var lowercaseName = leaveTypeEdit.Name.ToLower();
-        return await _context.Cost.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName)
+        return await _context.Costs.AnyAsync(q => q.Name.ToLower().Equals(lowercaseName)
             && q.Id != leaveTypeEdit.Id);
     }
 }

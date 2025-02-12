@@ -10,7 +10,9 @@ namespace CostManagementSystem.Web.Data
         {
         }
 
-        public DbSet<Cost> Cost { get; set; }
+        public DbSet<CostCode> CostCodes { get; set; }
+        public DbSet<Cost> Costs { get; set; }
+
 
     }
 }

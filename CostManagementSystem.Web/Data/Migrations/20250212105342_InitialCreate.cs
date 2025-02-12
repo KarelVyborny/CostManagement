@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CostManagementSystem.Web.Migrations
+namespace CostManagementSystem.Web.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -51,7 +51,21 @@ namespace CostManagementSystem.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cost",
+                name: "CostCodes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CostName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CostGroup = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CostCodes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Costs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -62,7 +76,7 @@ namespace CostManagementSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cost", x => x.Id);
+                    table.PrimaryKey("PK_Costs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -230,7 +244,10 @@ namespace CostManagementSystem.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Cost");
+                name: "CostCodes");
+
+            migrationBuilder.DropTable(
+                name: "Costs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
