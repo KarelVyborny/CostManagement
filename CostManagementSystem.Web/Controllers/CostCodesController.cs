@@ -33,7 +33,7 @@ namespace CostManagementSystem.Web.Controllers
             //    CostName = x.CostName,
             //    CostGroup = x.CostGroup
             //});
-            var viewdata=_mapper.Map<List<CostCodeReadOnlyVM>>(data);
+            var viewdata = _mapper.Map<List<CostCodeReadOnlyVM>>(data);
             return View(viewdata);
         }
 
@@ -68,17 +68,25 @@ namespace CostManagementSystem.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create([Bind("Id,CostName,CostGroup")] CostCode costCode)
-        public async Task<IActionResult> Create(CostCodeCreateVM costCodeCreateVM)
+        public async Task<IActionResult> Create(CostCodeCreateVM costCodeCreate)
         {
+            if (await CheckIfCostCodeExists(costCodeCreate.CostName))
+            {
+                ModelState.AddModelError(nameof(CostCodeCreateVM.CostName), "Cost Code already exists");
+            }
+
+              
             if (ModelState.IsValid)
             {
-                var costCode = _mapper.Map<CostCode>(costCodeCreateVM);
+                var costCode = _mapper.Map<CostCode>(costCodeCreate);
                 _context.Add(costCode);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(costCodeCreateVM);
+            return View(costCodeCreate);
         }
+
+    
 
         // GET: CostCodes/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -102,11 +110,15 @@ namespace CostManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CostCodeEditVM costCodeEdit )
+        public async Task<IActionResult> Edit(int id, CostCodeEditVM costCodeEdit)
         {
             if (id != costCodeEdit.Id)
             {
                 return NotFound();
+            }
+            if (await CheckIfCostCodeExistsForEdit(costCodeEdit))
+            {
+                ModelState.AddModelError(nameof(CostCodeEditVM.CostName), "Cost Code already exists");
             }
 
             if (ModelState.IsValid)
@@ -117,7 +129,7 @@ namespace CostManagementSystem.Web.Controllers
                     _context.Update(costCode);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)`
+                catch (DbUpdateConcurrencyException)
                 {
                     if (!CostCodeExists(costCodeEdit.Id))
                     {
@@ -169,6 +181,20 @@ namespace CostManagementSystem.Web.Controllers
         private bool CostCodeExists(int id)
         {
             return _context.CostCodes.Any(e => e.Id == id);
+        }
+
+        private async Task<bool> CheckIfCostCodeExists(string name)
+        {
+            //return _context.CostCodes.Any(q => q.CostName.Equals(name,StringComparison.InvariantCultureIgnoreCase));
+
+            return await _context.CostCodes.AnyAsync(q => q.CostName.ToLower().Equals(name.ToLower()));
+        }
+
+        private async Task<bool> CheckIfCostCodeExistsForEdit(CostCodeEditVM costCodeEdit)
+        {
+            //return _context.CostCodes.Any(q => q.CostName.Equals(name,StringComparison.InvariantCultureIgnoreCase));
+
+            return await _context.CostCodes.AnyAsync(q => q.CostName.ToLower().Equals(costCodeEdit.CostName.ToLower()) && q.Id!= costCodeEdit.Id);
         }
     }
 }
