@@ -9,6 +9,8 @@ namespace CostManagementSystem.Web.MappingProfiles
         public AutoMapperProfile() 
         {
             CreateMap<CostCode, CostCodeReadOnlyVM>();
+            CreateMap<CostCodeCreateVM, CostCode>();
+            CreateMap<CostCodeEditVM, CostCode>().ReverseMap();
             //CreateMap<Cost, CostReadOnlyVM>();
             ////.ForMember(dest => dest.Days, opt => opt.MapFrom(src => src.Amount));
             //CreateMap<CostCreateVM, Cost>();

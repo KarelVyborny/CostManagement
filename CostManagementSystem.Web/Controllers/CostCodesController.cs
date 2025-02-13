@@ -67,15 +67,17 @@ namespace CostManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CostName,CostGroup")] CostCode costCode)
+        //public async Task<IActionResult> Create([Bind("Id,CostName,CostGroup")] CostCode costCode)
+        public async Task<IActionResult> Create(CostCodeCreateVM costCodeCreateVM)
         {
             if (ModelState.IsValid)
             {
+                var costCode = _mapper.Map<CostCode>(costCodeCreateVM);
                 _context.Add(costCode);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(costCode);
+            return View(costCodeCreateVM);
         }
 
         // GET: CostCodes/Edit/5
@@ -91,7 +93,8 @@ namespace CostManagementSystem.Web.Controllers
             {
                 return NotFound();
             }
-            return View(costCode);
+            var viewData = _mapper.Map<CostCodeEditVM>(costCode);
+            return View(viewData);
         }
 
         // POST: CostCodes/Edit/5
@@ -99,9 +102,9 @@ namespace CostManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CostName,CostGroup")] CostCode costCode)
+        public async Task<IActionResult> Edit(int id, CostCodeEditVM costCodeEdit )
         {
-            if (id != costCode.Id)
+            if (id != costCodeEdit.Id)
             {
                 return NotFound();
             }
@@ -110,12 +113,13 @@ namespace CostManagementSystem.Web.Controllers
             {
                 try
                 {
+                    var costCode = _mapper.Map<CostCode>(costCodeEdit);
                     _context.Update(costCode);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException)`
                 {
-                    if (!CostCodeExists(costCode.Id))
+                    if (!CostCodeExists(costCodeEdit.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +130,7 @@ namespace CostManagementSystem.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(costCode);
+            return View(costCodeEdit);
         }
 
         // GET: CostCodes/Delete/5
