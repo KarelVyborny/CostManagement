@@ -6,22 +6,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CostManagementSystem.Web.Data;
+using CostManagementSystem.Web.Models.CostCodes;
+using AutoMapper;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CostManagementSystem.Web.Controllers
 {
     public class CostCodesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CostCodesController(ApplicationDbContext context)
+        public CostCodesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            this._mapper = mapper;
         }
 
         // GET: CostCodes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CostCodes.ToListAsync());
+            var data = await _context.CostCodes.ToListAsync();
+            //var viewData = data.Select(x => new IndexVM
+            //{
+            //    Id = x.Id,
+            //    CostName = x.CostName,
+            //    CostGroup = x.CostGroup
+            //});
+            var viewdata=_mapper.Map<List<CostCodeReadOnlyVM>>(data);
+            return View(viewdata);
         }
 
         // GET: CostCodes/Details/5
@@ -38,8 +51,9 @@ namespace CostManagementSystem.Web.Controllers
             {
                 return NotFound();
             }
+            var viewdata = _mapper.Map<CostCodeReadOnlyVM>(costCode);
 
-            return View(costCode);
+            return View(viewdata);
         }
 
         // GET: CostCodes/Create

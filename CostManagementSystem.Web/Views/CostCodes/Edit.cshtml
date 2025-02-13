@@ -1,12 +1,12 @@
-﻿@model CostManagementSystem.Web.Data.CostCode
+﻿@model CostCodeReadOnlyVM
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit Cost Code</h1>
 
-<h4>CostCode</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,20 +18,23 @@
                 <input asp-for="CostName" class="form-control" />
                 <span asp-validation-for="CostName" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
                 <label asp-for="CostGroup" class="control-label"></label>
                 <input asp-for="CostGroup" class="form-control" />
                 <span asp-validation-for="CostGroup" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-outline-primary" />
+                <a asp-action="Index" class="btn btn-outline-secondary">Back to List </a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 
 @section Scripts {
