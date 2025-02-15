@@ -1,6 +1,6 @@
 ﻿using CostManagementSystem.Web.Models.CostCodes;
 
-namespace CostManagementSystem.Web.Services
+namespace CostManagementSystem.Web.Services.CostCode
 {
     public interface ICostCodesService
     {

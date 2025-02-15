@@ -1,5 +1,6 @@
 using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Services;
+using CostManagementSystem.Web.Services.Cost_Approval_Workflow;
+using CostManagementSystem.Web.Services.CostCode;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<ICostCodesService, CostCodesService>();
+builder.Services.AddScoped<ICostApprovalService,CostApprovalService>();
 
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

@@ -4,6 +4,7 @@ using CostManagementSystem.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CostManagementSystem.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250215191410_AddingProjectAndEmployee")]
+    partial class AddingProjectAndEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace CostManagementSystem.Web.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostApproval", b =>
+            modelBuilder.Entity("CostManagementSystem.Web.Data.Cost", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,6 +45,10 @@ namespace CostManagementSystem.Web.Data.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("EmployeeId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -53,9 +60,6 @@ namespace CostManagementSystem.Web.Data.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.Property<double>("VAT")
                         .HasColumnType("float");
 
@@ -63,7 +67,7 @@ namespace CostManagementSystem.Web.Data.Migrations
 
                     b.HasIndex("CostCodeId");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("EmployeeId1");
 
                     b.HasIndex("PeriodId");
 
@@ -96,11 +100,8 @@ namespace CostManagementSystem.Web.Data.Migrations
 
             modelBuilder.Entity("CostManagementSystem.Web.Data.Employee", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -152,8 +153,8 @@ namespace CostManagementSystem.Web.Data.Migrations
                     b.Property<DateOnly?>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<int?>("ProjectManagerId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProjectManagerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProjectName")
                         .IsRequired()
@@ -371,7 +372,7 @@ namespace CostManagementSystem.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostApproval", b =>
+            modelBuilder.Entity("CostManagementSystem.Web.Data.Cost", b =>
                 {
                     b.HasOne("CostManagementSystem.Web.Data.CostCode", "CostCode")
                         .WithMany()
@@ -381,7 +382,7 @@ namespace CostManagementSystem.Web.Data.Migrations
 
                     b.HasOne("CostManagementSystem.Web.Data.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("EmployeeId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

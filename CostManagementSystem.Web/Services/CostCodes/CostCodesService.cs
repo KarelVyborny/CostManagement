@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using CostManagementSystem.Web.Data;
 using CostManagementSystem.Web.Models.CostCodes;
+using CostManagementSystem.Web.Services.CostCode;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 
-namespace CostManagementSystem.Web.Services;
 
 public class CostCodesService(ApplicationDbContext _context, IMapper _mapper) : ICostCodesService
 {
