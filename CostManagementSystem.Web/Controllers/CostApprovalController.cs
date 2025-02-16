@@ -1,8 +1,11 @@
-﻿using CostManagementSystem.Web.Models.CostApproval;
+﻿using CostManagementSystem.Web.Data;
+using CostManagementSystem.Web.Models.CostApproval;
 using CostManagementSystem.Web.Models.CostCodes;
 using CostManagementSystem.Web.Services.Cost_Approval_Workflow;
 using CostManagementSystem.Web.Services.CostCode;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CostManagementSystem.Web.Controllers;
 
@@ -17,6 +20,16 @@ public class CostApprovalController(ICostApprovalService _costApprovalService) :
 
     public IActionResult Create()
     {
+        ViewBag.StatusList = Enum.GetValues(typeof(Status))
+                         .Cast<Status>()
+                         .Select(e => new SelectListItem
+                         {
+                             Value = ((int)e).ToString(),
+                             Text = e.ToString()
+                         })
+                         .ToList();
+
+        ViewBag.CostCodes = new SelectList(new SelectList(Enum.GetValues(typeof(Status))));
         return View();
     }
 
@@ -34,11 +47,35 @@ public class CostApprovalController(ICostApprovalService _costApprovalService) :
         //}
 
 
+        //if (ModelState.IsValid)
+        //{
+        //    await _costApprovalService.AddAsync(costApprovalCreate);
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //return View(costApprovalCreate);
+        //{
         if (ModelState.IsValid)
         {
+            var costApproval = new CostApproval
+            {
+                EmployeeId = costApprovalCreate.EmployeeId,
+                CostCodeId = costApprovalCreate.CostCodeId,
+                ProjectId = costApprovalCreate.ProjectId,
+                PeriodId = costApprovalCreate.PeriodId,
+                Amount = costApprovalCreate.Amount,
+                CostDate = costApprovalCreate.CostDate,
+                VAT = costApprovalCreate.VAT,
+                Status = costApprovalCreate.Status  // Assign Enum Value
+            };
+
             await _costApprovalService.AddAsync(costApprovalCreate);
+            
             return RedirectToAction(nameof(Index));
         }
+
+        // If model is invalid, reload dropdowns
+        ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(Status)));
+
         return View(costApprovalCreate);
     }
 

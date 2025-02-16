@@ -52,6 +52,7 @@ public class CostCodesController(ICostCodesService _costCodesService) : Controll
     // GET: CostCodes/Create
     public IActionResult Create()
     {
+        ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(Status)));
         return View();
     }
 

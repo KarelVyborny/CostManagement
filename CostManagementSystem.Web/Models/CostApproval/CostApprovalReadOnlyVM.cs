@@ -22,8 +22,8 @@ namespace CostManagementSystem.Web.Models.CostApproval
 
         //public Period Period { get; set; }
        
-        public double Amount { get; set; }
-        public double VAT { get; set; }
+        public decimal Amount { get; set; }
+        public decimal VAT { get; set; }
         public Status Status { get; set; }
 
         public PeriodVM Period { get; set; } = new PeriodVM();
