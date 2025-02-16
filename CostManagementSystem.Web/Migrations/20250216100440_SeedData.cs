@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CostManagementSystem.Web.Data.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace CostManagementSystem.Web.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class SeedData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,7 +58,7 @@ namespace CostManagementSystem.Web.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CostName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CostName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CostGroup = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -65,18 +67,33 @@ namespace CostManagementSystem.Web.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Costs",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    FinalDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false)
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Costs", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Periods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Periods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,6 +202,95 @@ namespace CostManagementSystem.Web.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Project",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    ProjectManagerId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Project", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Project_Employees_ProjectManagerId",
+                        column: x => x.ProjectManagerId,
+                        principalTable: "Employees",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Costs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    CostCodeId = table.Column<int>(type: "int", nullable: false),
+                    CostDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    PeriodId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<double>(type: "float", nullable: false),
+                    VAT = table.Column<double>(type: "float", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Costs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Costs_CostCodes_CostCodeId",
+                        column: x => x.CostCodeId,
+                        principalTable: "CostCodes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Costs_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Costs_Periods_PeriodId",
+                        column: x => x.PeriodId,
+                        principalTable: "Periods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Costs_Project_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Project",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "FirstName", "IsActive", "LastName" },
+                values: new object[,]
+                {
+                    { 1, "John", false, "Doe" },
+                    { 2, "Jane", false, "Smith" },
+                    { 3, "Alice", false, "Johnson" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Periods",
+                columns: new[] { "Id", "EndDate", "Name", "StartDate" },
+                values: new object[,]
+                {
+                    { 1, new DateOnly(2020, 12, 31), "Year 2020", new DateOnly(2020, 1, 1) },
+                    { 2, new DateOnly(2021, 12, 31), "Year 2021", new DateOnly(2021, 1, 1) },
+                    { 3, new DateOnly(2022, 12, 31), "Year 2022", new DateOnly(2022, 1, 1) },
+                    { 4, new DateOnly(2023, 12, 31), "Year 2023", new DateOnly(2023, 1, 1) },
+                    { 5, new DateOnly(2024, 12, 31), "Year 2024", new DateOnly(2024, 1, 1) },
+                    { 6, new DateOnly(2025, 12, 31), "Year 2025", new DateOnly(2025, 1, 1) }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -223,6 +329,31 @@ namespace CostManagementSystem.Web.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Costs_CostCodeId",
+                table: "Costs",
+                column: "CostCodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Costs_EmployeeId",
+                table: "Costs",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Costs_PeriodId",
+                table: "Costs",
+                column: "PeriodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Costs_ProjectId",
+                table: "Costs",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Project_ProjectManagerId",
+                table: "Project",
+                column: "ProjectManagerId");
         }
 
         /// <inheritdoc />
@@ -244,9 +375,6 @@ namespace CostManagementSystem.Web.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CostCodes");
-
-            migrationBuilder.DropTable(
                 name: "Costs");
 
             migrationBuilder.DropTable(
@@ -254,6 +382,18 @@ namespace CostManagementSystem.Web.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CostCodes");
+
+            migrationBuilder.DropTable(
+                name: "Periods");
+
+            migrationBuilder.DropTable(
+                name: "Project");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
         }
     }
 }

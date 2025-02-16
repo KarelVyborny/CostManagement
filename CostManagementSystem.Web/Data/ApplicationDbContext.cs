@@ -29,7 +29,7 @@ namespace CostManagementSystem.Web.Data
                 new Employee { Id = 3, FirstName = "Alice", LastName = "Johnson" }
             );
        
-            base.OnModelCreating(modelBuilder);
+          
 
             modelBuilder.Entity<Period>().HasData(
                 new Period { Id = 1, Name = "Year 2020", StartDate = new DateOnly(2020, 1, 1), EndDate = new DateOnly(2020, 12, 31) },
