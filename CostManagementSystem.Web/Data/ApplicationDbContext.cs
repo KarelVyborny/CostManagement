@@ -45,6 +45,7 @@ namespace CostManagementSystem.Web.Data
                 new Period { Id = 6, Name = "Year 2025", StartDate = new DateOnly(2025, 1, 1), EndDate = new DateOnly(2025, 12, 31) }
             );
         }
+        public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalCreateVM> CostApprovalCreateVM { get; set; } = default!;
         //public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
 
 

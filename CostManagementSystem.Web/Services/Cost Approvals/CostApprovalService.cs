@@ -72,4 +72,11 @@ public class CostApprovalService(ApplicationDbContext _context, IMapper _mapper)
         var viewdata =  _mapper.Map<List<CostApproval>,List<CostApprovalReadOnlyVM>>(data);
         return viewdata;
     }
+
+    public async Task AddAsync(CostApprovalCreateVM costApprovalCreate)
+    {
+        var data = _mapper.Map<CostApproval>(costApprovalCreate);
+        _context.Add(data);
+        await _context.SaveChangesAsync();
+    }
 }

@@ -18,6 +18,7 @@ namespace CostManagementSystem.Web.MappingProfiles
             CreateMap<Period, PeriodVM>();
             CreateMap<Project, ProjectVM>();
             CreateMap<CostCode, CostCodeReadOnlyVM>();
+            CreateMap<CostApprovalCreateVM, CostApproval>();
 
             //CreateMap<Cost, CostReadOnlyVM>();
             ////.ForMember(dest => dest.Days, opt => opt.MapFrom(src => src.Amount));

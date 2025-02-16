@@ -12,14 +12,14 @@ namespace CostManagementSystem.Web.Data
         public int CostCodeId { get; set; }
         public DateOnly CostDate { get; set; }
 
-        public Project Project { get; set; }
+        public Project? Project { get; set; }
         public int ProjectId { get; set; }
 
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
         public int EmployeeId { get; set; }
 
 
-        public Period Period { get; set; }
+        public Period? Period { get; set; }
         public int PeriodId { get; set; }
 
         public double Amount { get; set; }
