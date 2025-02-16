@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CostManagementSystem.Web.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedData : Migration
+    public partial class Seeding : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -203,7 +203,7 @@ namespace CostManagementSystem.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Project",
+                name: "Projects",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -215,16 +215,16 @@ namespace CostManagementSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Project", x => x.Id);
+                    table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Project_Employees_ProjectManagerId",
+                        name: "FK_Projects_Employees_ProjectManagerId",
                         column: x => x.ProjectManagerId,
                         principalTable: "Employees",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Costs",
+                name: "CostApprovals",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -241,29 +241,29 @@ namespace CostManagementSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Costs", x => x.Id);
+                    table.PrimaryKey("PK_CostApprovals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Costs_CostCodes_CostCodeId",
+                        name: "FK_CostApprovals_CostCodes_CostCodeId",
                         column: x => x.CostCodeId,
                         principalTable: "CostCodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Costs_Employees_EmployeeId",
+                        name: "FK_CostApprovals_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Costs_Periods_PeriodId",
+                        name: "FK_CostApprovals_Periods_PeriodId",
                         column: x => x.PeriodId,
                         principalTable: "Periods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Costs_Project_ProjectId",
+                        name: "FK_CostApprovals_Projects_ProjectId",
                         column: x => x.ProjectId,
-                        principalTable: "Project",
+                        principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -331,28 +331,28 @@ namespace CostManagementSystem.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Costs_CostCodeId",
-                table: "Costs",
+                name: "IX_CostApprovals_CostCodeId",
+                table: "CostApprovals",
                 column: "CostCodeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Costs_EmployeeId",
-                table: "Costs",
+                name: "IX_CostApprovals_EmployeeId",
+                table: "CostApprovals",
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Costs_PeriodId",
-                table: "Costs",
+                name: "IX_CostApprovals_PeriodId",
+                table: "CostApprovals",
                 column: "PeriodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Costs_ProjectId",
-                table: "Costs",
+                name: "IX_CostApprovals_ProjectId",
+                table: "CostApprovals",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Project_ProjectManagerId",
-                table: "Project",
+                name: "IX_Projects_ProjectManagerId",
+                table: "Projects",
                 column: "ProjectManagerId");
         }
 
@@ -375,7 +375,7 @@ namespace CostManagementSystem.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Costs");
+                name: "CostApprovals");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -390,7 +390,7 @@ namespace CostManagementSystem.Web.Migrations
                 name: "Periods");
 
             migrationBuilder.DropTable(
-                name: "Project");
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "Employees");

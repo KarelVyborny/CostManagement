@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CostManagementSystem.Web.Data;
+using CostManagementSystem.Web.Models.CostApproval;
 using CostManagementSystem.Web.Services.CostCode;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -58,5 +59,17 @@ public class CostApprovalService(ApplicationDbContext _context, IMapper _mapper)
     public Task CostApproval(string employeeId)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task <List<CostApprovalReadOnlyVM>> GetCostApprovalsAsync(int employeeId)
+    {
+        var data = await _context.CostApprovals
+            .Include(q=>q.CostCode)
+            .Include(q => q.Period)
+            .Include(q => q.Employee)
+            .Where(x => x.EmployeeId == employeeId)
+            .ToListAsync();
+        var viewdata =  _mapper.Map<List<CostApproval>,List<CostApprovalReadOnlyVM>>(data);
+        return viewdata;
     }
 }

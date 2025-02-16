@@ -69,7 +69,7 @@ namespace CostManagementSystem.Web.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Costs");
+                    b.ToTable("CostApprovals");
                 });
 
             modelBuilder.Entity("CostManagementSystem.Web.Data.CostCode", b =>
@@ -233,7 +233,7 @@ namespace CostManagementSystem.Web.Migrations
 
                     b.HasIndex("ProjectManagerId");
 
-                    b.ToTable("Project");
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

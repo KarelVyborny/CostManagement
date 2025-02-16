@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Xml;
+using CostManagementSystem.Web.Models.CostApproval;
 
 namespace CostManagementSystem.Web.Data
 {
@@ -14,10 +15,14 @@ namespace CostManagementSystem.Web.Data
         //{
         //    base.OnModelCreating(builder);
         //}
+        public DbSet<CostApproval> CostApprovals { get; set; }
         public DbSet<CostCode> CostCodes { get; set; }
-        public DbSet<CostApproval> Costs { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Period> Periods { get; set; }
+
+        public DbSet<Project> Projects { get; set; }    
+
+      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -40,6 +45,7 @@ namespace CostManagementSystem.Web.Data
                 new Period { Id = 6, Name = "Year 2025", StartDate = new DateOnly(2025, 1, 1), EndDate = new DateOnly(2025, 12, 31) }
             );
         }
+        //public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
 
 
     }

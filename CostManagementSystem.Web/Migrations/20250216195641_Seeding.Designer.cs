@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CostManagementSystem.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250216100440_SeedData")]
-    partial class SeedData
+    [Migration("20250216195641_Seeding")]
+    partial class Seeding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,7 +72,7 @@ namespace CostManagementSystem.Web.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Costs");
+                    b.ToTable("CostApprovals");
                 });
 
             modelBuilder.Entity("CostManagementSystem.Web.Data.CostCode", b =>
@@ -236,7 +236,7 @@ namespace CostManagementSystem.Web.Migrations
 
                     b.HasIndex("ProjectManagerId");
 
-                    b.ToTable("Project");
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
