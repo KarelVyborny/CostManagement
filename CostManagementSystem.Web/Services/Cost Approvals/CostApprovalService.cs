@@ -33,20 +33,19 @@ public class CostApprovalService(ApplicationDbContext _context, IMapper _mapper)
     //{
     //    Task<List<CostApprovalVM>> GetAllAsync();
     //}   
-    public async Task CostApproval(int employeeId)
+    public async Task CostApproval()
     {
         var currentDate = DateTime.Now;
       ; 
-        var CostCode = await _context.CostCodes.ToListAsync();
+        var CostApproval = await _context.CostApprovals.ToListAsync();
         var period = _context.Periods.SingleAsync(q=>q.EndDate.Year == currentDate.Year);
 
-        foreach (var item in CostCode)
+        foreach (var item in CostApproval)
         {
             var costApproval = new CostApproval
             {
                 CostCodeId = item.Id,
                 PeriodId = period.Id,
-                EmployeeId = employeeId,
                 Status = Status.Pending,
                 CostDate = DateOnly.FromDateTime(currentDate)
             };
@@ -56,18 +55,14 @@ public class CostApprovalService(ApplicationDbContext _context, IMapper _mapper)
 
     }
 
-    public Task CostApproval(string employeeId)
-    {
-        throw new NotImplementedException();
-    }
+ 
 
-    public async Task <List<CostApprovalReadOnlyVM>> GetCostApprovalsAsync(int employeeId)
+    public async Task <List<CostApprovalReadOnlyVM>> GetCostApprovalsAsync()
     {
         var data = await _context.CostApprovals
             .Include(q=>q.CostCode)
             .Include(q => q.Period)
             .Include(q => q.Employee)
-            .Where(x => x.EmployeeId == employeeId)
             .ToListAsync();
         var viewdata =  _mapper.Map<List<CostApproval>,List<CostApprovalReadOnlyVM>>(data);
         return viewdata;

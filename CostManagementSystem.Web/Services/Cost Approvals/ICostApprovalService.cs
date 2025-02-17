@@ -6,8 +6,7 @@ namespace CostManagementSystem.Web.Services.Cost_Approval_Workflow
 {
     public interface ICostApprovalService
     {
-        Task CostApproval(string employeeId);
-        Task<List<CostApprovalReadOnlyVM>> GetCostApprovalsAsync(int employeeId);
+        Task<List<CostApprovalReadOnlyVM>> GetCostApprovalsAsync();
 
         Task AddAsync(CostApprovalCreateVM costApprovalCreate);
     }

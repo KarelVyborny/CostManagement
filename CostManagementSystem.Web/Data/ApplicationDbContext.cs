@@ -20,9 +20,9 @@ namespace CostManagementSystem.Web.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Period> Periods { get; set; }
 
-        public DbSet<Project> Projects { get; set; }    
+        public DbSet<Project> Projects { get; set; }
 
-      
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -33,8 +33,16 @@ namespace CostManagementSystem.Web.Data
                 new Employee { Id = 2, FirstName = "Jane", LastName = "Smith" },
                 new Employee { Id = 3, FirstName = "Alice", LastName = "Johnson" }
             );
-       
-          
+            modelBuilder.Entity<CostCode>().HasData(
+                new CostCode { Id = 1, CostName = "Cost Code 1", CostGroup = "Cost Group 1" },
+                new CostCode { Id = 2, CostName = "Cost Code 2", CostGroup = "Cost Group 2" },
+                new CostCode { Id = 3, CostName = "Cost Code 3", CostGroup = "Cost Group 3" }
+            );
+            modelBuilder.Entity<Project>().HasData(
+       new Project { Id = 1, ProjectName = "Project 1" },
+       new Project { Id = 2, ProjectName = "Project 2" },
+       new Project { Id = 3, ProjectName = "Project 3" }  // No manager assigned
+   );
 
             modelBuilder.Entity<Period>().HasData(
                 new Period { Id = 1, Name = "Year 2020", StartDate = new DateOnly(2020, 1, 1), EndDate = new DateOnly(2020, 12, 31) },
@@ -45,7 +53,7 @@ namespace CostManagementSystem.Web.Data
                 new Period { Id = 6, Name = "Year 2025", StartDate = new DateOnly(2025, 1, 1), EndDate = new DateOnly(2025, 12, 31) }
             );
         }
-        public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalCreateVM> CostApprovalCreateVM { get; set; } = default!;
+        //public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalCreateVM> CostApprovalCreateVM { get; set; } = default!;
         //public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
 
 

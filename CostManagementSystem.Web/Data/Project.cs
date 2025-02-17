@@ -7,6 +7,10 @@
         public DateOnly? StartDate { get; set; }
         public DateOnly? EndDate { get; set; }
 
-        public Employee? ProjectManager  { get; set; }
+       //public Employee? ProjectManager  { get; set; }
+
+        //public int? ProjectManagerId { get; set; }
+        //public Employee? ProjectManager { get; set; }
+
     }
 }

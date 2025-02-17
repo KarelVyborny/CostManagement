@@ -13,8 +13,8 @@ public class CostApprovalController(ICostApprovalService _costApprovalService) :
 {
     public async Task<IActionResult> Index()
     {
-        var employeeId = 1;
-        var view = await _costApprovalService.GetCostApprovalsAsync(employeeId);
+       
+        var view = await _costApprovalService.GetCostApprovalsAsync();
         return View(view);
     }
 
