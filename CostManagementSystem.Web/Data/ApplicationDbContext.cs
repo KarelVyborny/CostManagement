@@ -34,9 +34,9 @@ namespace CostManagementSystem.Web.Data
                 new Employee { Id = 3, FirstName = "Alice", LastName = "Johnson" }
             );
             modelBuilder.Entity<CostCode>().HasData(
-                new CostCode { Id = 1, CostName = "Cost Code 1", CostGroup = "Cost Group 1" },
-                new CostCode { Id = 2, CostName = "Cost Code 2", CostGroup = "Cost Group 2" },
-                new CostCode { Id = 3, CostName = "Cost Code 3", CostGroup = "Cost Group 3" }
+                new CostCode { Id = 1, CostName = "Construction", CostGroup = "Construction" },
+                new CostCode { Id = 2, CostName = "Engineering", CostGroup = "Engineering" },
+                new CostCode { Id = 3, CostName = "IT Services", CostGroup = "IT" }
             );
             modelBuilder.Entity<Project>().HasData(
        new Project { Id = 1, ProjectName = "Project 1" },
@@ -53,6 +53,8 @@ namespace CostManagementSystem.Web.Data
                 new Period { Id = 6, Name = "Year 2025", StartDate = new DateOnly(2025, 1, 1), EndDate = new DateOnly(2025, 12, 31) }
             );
         }
+        public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalEditVM> CostApprovalEditVM { get; set; } = default!;
+        public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
         //public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalCreateVM> CostApprovalCreateVM { get; set; } = default!;
         //public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
 

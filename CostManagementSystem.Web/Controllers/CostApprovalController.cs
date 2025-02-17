@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CostManagementSystem.Web.Controllers;
 
-public class CostApprovalController(ICostApprovalService _costApprovalService) : Controller
+public class CostApprovalController(ICostApprovalService _costApprovalService, ApplicationDbContext _context) : Controller
 {
     public async Task<IActionResult> Index()
     {
@@ -29,7 +29,13 @@ public class CostApprovalController(ICostApprovalService _costApprovalService) :
                          })
                          .ToList();
 
-        ViewBag.CostCodes = new SelectList(new SelectList(Enum.GetValues(typeof(Status))));
+        ViewBag.EmployeeList = new SelectList(_context.Employees, "Id", "FirstName","Second Name");
+
+        ViewBag.CostCodeList = new SelectList(_context.CostCodes, "Id", "CostName");
+        ViewBag.ProjectList = new SelectList(_context.Projects, "Id", "ProjectName");
+        ViewBag.PeriodList = new SelectList(_context.Periods, "Id", "Name");
+
+
         return View();
     }
 
@@ -37,6 +43,7 @@ public class CostApprovalController(ICostApprovalService _costApprovalService) :
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CostApprovalCreateVM costApprovalCreate)
     {
+
         //var employeeId = 1;
         //await _costApprovalService.CostApproval(employeeId);
         //return RedirectToAction("Index");
@@ -75,8 +82,102 @@ public class CostApprovalController(ICostApprovalService _costApprovalService) :
 
         // If model is invalid, reload dropdowns
         ViewBag.StatusList = new SelectList(Enum.GetValues(typeof(Status)));
+        ViewBag.CostCodeList = new SelectList(_context.CostCodes, "Id", "CostName");
 
         return View(costApprovalCreate);
     }
+    // GET: CostCodes/Details/5
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var costCode = await _costApprovalService.GetAsync<CostCodeReadOnlyVM>(id.Value);
+        if (costCode == null)
+        {
+            return NotFound();
+        }
 
+        return View(costCode);
+    }
+    // GET: CostCodes/Edit/5
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var costApproval = await _costApprovalService.GetAsync<CostApprovalEditVM>(id.Value);
+        if (costApproval == null)
+        {
+            return NotFound();
+        }
+
+        return View(costApproval);
+
+
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, CostApprovalEditVM costApprovalEdit)
+    {
+        if (id != costApprovalEdit.Id)
+        {
+            return NotFound();
+        }
+        //if (await _costCodesService.CheckIfCostCodeExistsForEdit(costCodeEdit))
+        //{
+        //    ModelState.AddModelError(nameof(CostCodeEditVM.CostName), "Cost Code already exists");
+        //}
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                await _costApprovalService.EditAsync(costApprovalEdit);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+                //if (!_costApprovalService.CostCodeExists(costApprovalEdit.Id))
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
+                //    throw;
+                //}
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(costApprovalEdit);
+    }
+
+    // GET: CostCodes/Delete/5
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var costApproval = await _costApprovalService.GetAsync<CostApprovalReadOnlyVM>(id.Value);
+        if (costApproval == null)
+        {
+            return NotFound();
+        }
+
+
+        return View(costApproval);
+    }
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+
+        await _costApprovalService.Remove(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

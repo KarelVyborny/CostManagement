@@ -10,9 +10,11 @@ namespace CostManagementSystem.Web.Models.CostApproval
     public class CostApprovalReadOnlyVM
     {
         public int Id { get; set; }
+        [Display(Name = "Approval")]
         public string Name { get; set; }
         //public CostCode? CostCode { get; set; }
-      
+        [Display(Name="Cost date")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yy}")]
         public DateOnly CostDate { get; set; }
 
         //public Project Project { get; set; }
@@ -29,7 +31,7 @@ namespace CostManagementSystem.Web.Models.CostApproval
         public PeriodVM Period { get; set; } = new PeriodVM();
         public ProjectVM Project { get; set; } = new ProjectVM();
         public EmployeeVM Employee { get; set; } = new EmployeeVM();
-        public CostCodeReadOnlyVM CostCodeVM { get; set; } = new CostCodeReadOnlyVM();
+        public CostCodeReadOnlyVM CostCode { get; set; } = new CostCodeReadOnlyVM();
 
 
     }

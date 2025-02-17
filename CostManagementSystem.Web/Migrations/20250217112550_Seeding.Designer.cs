@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CostManagementSystem.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250217092913_SeedData")]
-    partial class SeedData
+    [Migration("20250217112550_Seeding")]
+    partial class Seeding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,20 +100,20 @@ namespace CostManagementSystem.Web.Migrations
                         new
                         {
                             Id = 1,
-                            CostGroup = "Cost Group 1",
-                            CostName = "Cost Code 1"
+                            CostGroup = "Construction",
+                            CostName = "Construction"
                         },
                         new
                         {
                             Id = 2,
-                            CostGroup = "Cost Group 2",
-                            CostName = "Cost Code 2"
+                            CostGroup = "Engineering",
+                            CostName = "Engineering"
                         },
                         new
                         {
                             Id = 3,
-                            CostGroup = "Cost Group 3",
-                            CostName = "Cost Code 3"
+                            CostGroup = "IT",
+                            CostName = "IT Services"
                         });
                 });
 

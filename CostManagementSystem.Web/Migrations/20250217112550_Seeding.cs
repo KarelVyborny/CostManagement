@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CostManagementSystem.Web.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedData : Migration
+    public partial class Seeding : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -263,9 +263,9 @@ namespace CostManagementSystem.Web.Migrations
                 columns: new[] { "Id", "CostGroup", "CostName" },
                 values: new object[,]
                 {
-                    { 1, "Cost Group 1", "Cost Code 1" },
-                    { 2, "Cost Group 2", "Cost Code 2" },
-                    { 3, "Cost Group 3", "Cost Code 3" }
+                    { 1, "Construction", "Construction" },
+                    { 2, "Engineering", "Engineering" },
+                    { 3, "IT", "IT Services" }
                 });
 
             migrationBuilder.InsertData(
