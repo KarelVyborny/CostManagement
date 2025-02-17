@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Xml;
 using CostManagementSystem.Web.Models.CostApproval;
+using CostManagementSystem.Web.Data.Configurations;
 
 namespace CostManagementSystem.Web.Data
 {
@@ -21,7 +22,8 @@ namespace CostManagementSystem.Web.Data
         public DbSet<Period> Periods { get; set; }
 
         public DbSet<Project> Projects { get; set; }
-
+        public DbSet<CostRequestStatus> CostRequestStatuses { get; set; }
+        public DbSet<CostRequest> CostRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,6 +54,8 @@ namespace CostManagementSystem.Web.Data
                 new Period { Id = 5, Name = "Year 2024", StartDate = new DateOnly(2024, 1, 1), EndDate = new DateOnly(2024, 12, 31) },
                 new Period { Id = 6, Name = "Year 2025", StartDate = new DateOnly(2025, 1, 1), EndDate = new DateOnly(2025, 12, 31) }
             );
+
+            modelBuilder.ApplyConfiguration(new CostRequestStatusConfiguration());
         }
         public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalEditVM> CostApprovalEditVM { get; set; } = default!;
         public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
