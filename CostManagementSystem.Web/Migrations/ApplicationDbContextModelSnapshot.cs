@@ -39,11 +39,6 @@ namespace CostManagementSystem.Web.Migrations
                     b.Property<DateOnly>("CostDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
@@ -75,10 +70,6 @@ namespace CostManagementSystem.Web.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("CostApprovals");
-
-                    b.HasDiscriminator().HasValue("CostApproval");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("CostManagementSystem.Web.Data.CostCode", b =>
@@ -121,6 +112,77 @@ namespace CostManagementSystem.Web.Migrations
                             CostGroup = "IT",
                             CostName = "IT Services"
                         });
+                });
+
+            modelBuilder.Entity("CostManagementSystem.Web.Data.CostRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("CostCodeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("CostDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("CostRequestStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RequestComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RequestedById1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReviewedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ReviewedById1")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("VAT")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostCodeId");
+
+                    b.HasIndex("CostRequestStatusId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("PeriodId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("RequestedById1");
+
+                    b.HasIndex("ReviewedById1");
+
+                    b.ToTable("CostRequests");
                 });
 
             modelBuilder.Entity("CostManagementSystem.Web.Data.CostRequestStatus", b =>
@@ -706,38 +768,6 @@ namespace CostManagementSystem.Web.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostRequest", b =>
-                {
-                    b.HasBaseType("CostManagementSystem.Web.Data.CostApproval");
-
-                    b.Property<int>("CostRequestStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RequestComment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RequestedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RequestedById1")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ReviewedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ReviewedById1")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CostRequestStatusId");
-
-                    b.HasIndex("RequestedById1");
-
-                    b.HasIndex("ReviewedById1");
-
-                    b.HasDiscriminator().HasValue("CostRequest");
-                });
-
             modelBuilder.Entity("CostManagementSystem.Web.Data.CostApproval", b =>
                 {
                     b.HasOne("CostManagementSystem.Web.Data.CostCode", "CostCode")
@@ -763,6 +793,55 @@ namespace CostManagementSystem.Web.Migrations
                     b.Navigation("Period");
 
                     b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("CostManagementSystem.Web.Data.CostRequest", b =>
+                {
+                    b.HasOne("CostManagementSystem.Web.Data.CostCode", "CostCode")
+                        .WithMany()
+                        .HasForeignKey("CostCodeId");
+
+                    b.HasOne("CostManagementSystem.Web.Data.CostRequestStatus", "CostRequestStatus")
+                        .WithMany()
+                        .HasForeignKey("CostRequestStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CostManagementSystem.Web.Data.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("CostManagementSystem.Web.Data.Period", "Period")
+                        .WithMany()
+                        .HasForeignKey("PeriodId");
+
+                    b.HasOne("CostManagementSystem.Web.Data.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("CostManagementSystem.Web.Data.Employee", "RequestedBy")
+                        .WithMany()
+                        .HasForeignKey("RequestedById1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CostManagementSystem.Web.Data.Employee", "ReviewedBy")
+                        .WithMany()
+                        .HasForeignKey("ReviewedById1");
+
+                    b.Navigation("CostCode");
+
+                    b.Navigation("CostRequestStatus");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Period");
+
+                    b.Navigation("Project");
+
+                    b.Navigation("RequestedBy");
+
+                    b.Navigation("ReviewedBy");
                 });
 
             modelBuilder.Entity("CostManagementSystem.Web.Models.CostApproval.CostApprovalEditVM", b =>
@@ -876,31 +955,6 @@ namespace CostManagementSystem.Web.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostRequest", b =>
-                {
-                    b.HasOne("CostManagementSystem.Web.Data.CostRequestStatus", "CostRequestStatus")
-                        .WithMany()
-                        .HasForeignKey("CostRequestStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CostManagementSystem.Web.Data.Employee", "RequestedBy")
-                        .WithMany()
-                        .HasForeignKey("RequestedById1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CostManagementSystem.Web.Data.Employee", "ReviewedBy")
-                        .WithMany()
-                        .HasForeignKey("ReviewedById1");
-
-                    b.Navigation("CostRequestStatus");
-
-                    b.Navigation("RequestedBy");
-
-                    b.Navigation("ReviewedBy");
                 });
 
             modelBuilder.Entity("CostManagementSystem.Web.Models.Employee.EmployeeVM", b =>

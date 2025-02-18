@@ -28,5 +28,4 @@ namespace CostManagementSystem.Web.MappingProfiles
         }
     }
 
-
 }

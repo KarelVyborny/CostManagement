@@ -37,7 +37,7 @@ public class CostApprovalService(ApplicationDbContext _context, IMapper _mapper)
     public async Task CostApproval()
     {
         var currentDate = DateTime.Now;
-      ; 
+       
         var CostApproval = await _context.CostApprovals.ToListAsync();
         var period = _context.Periods.SingleAsync(q=>q.EndDate.Year == currentDate.Year);
 
@@ -61,7 +61,7 @@ public class CostApprovalService(ApplicationDbContext _context, IMapper _mapper)
     public async Task <List<CostApprovalReadOnlyVM>> GetCostApprovalsAsync()
     {
         var data = await _context.CostApprovals
-            .Include(q=>q.CostCode)
+            .Include(q => q.CostCode)
             .Include(q => q.Period)
             .Include(q => q.Employee)
             .Include(q => q.Project)
