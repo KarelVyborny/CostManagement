@@ -57,8 +57,8 @@ namespace CostManagementSystem.Web.Data
 
             modelBuilder.ApplyConfiguration(new CostRequestStatusConfiguration());
         }
-        public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalEditVM> CostApprovalEditVM { get; set; } = default!;
-        public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
+      //  public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalEditVM> CostApprovalEditVM { get; set; } = default!;
+     //  public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
         //public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalCreateVM> CostApprovalCreateVM { get; set; } = default!;
         //public DbSet<CostManagementSystem.Web.Models.CostApproval.CostApprovalReadOnlyVM> CostApprovalReadOnlyVM { get; set; } = default!;
 

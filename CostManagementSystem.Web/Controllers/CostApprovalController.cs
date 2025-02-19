@@ -29,7 +29,7 @@ public class CostApprovalController(ICostApprovalService _costApprovalService, A
                          })
                          .ToList();
 
-        ViewBag.EmployeeList = new SelectList(_context.Employees, "Id", "FirstName","Second Name");
+        ViewBag.EmployeeList = new SelectList(_context.Employees, "Id", "LastName");
 
         ViewBag.CostCodeList = new SelectList(_context.CostCodes, "Id", "CostName");
         ViewBag.ProjectList = new SelectList(_context.Projects, "Id", "ProjectName");

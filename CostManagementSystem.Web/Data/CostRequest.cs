@@ -26,10 +26,10 @@ namespace CostManagementSystem.Web.Data
         public CostRequestStatus? CostRequestStatus { get; set; }
         public int CostRequestStatusId { get; set; }
         
-        public Employee RequestedBy { get; set; }
-        public string RequestedById { get; set; } =default!;
-        public Employee? ReviewedBy { get; set; }
-        public string? ReviewedById { get; set; }
+        public Employee? Requestor { get; set; }
+        public int? RequestorId { get; set; } 
+        public Employee? Reviewer { get; set; }
+        public int? ReviewerId { get; set; }
 
 
         public string? RequestComment { get; set; }

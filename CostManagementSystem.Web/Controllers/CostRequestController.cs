@@ -1,4 +1,5 @@
 ﻿using CostManagementSystem.Web.Data;
+using CostManagementSystem.Web.Models.CostApproval;
 using CostManagementSystem.Web.Models.CostRequests;
 using CostManagementSystem.Web.Services.Cost_Approval_Workflow;
 using CostManagementSystem.Web.Services.CostCode;
@@ -6,37 +7,59 @@ using CostManagementSystem.Web.Services.CostRequests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CostManagementSystem.Web.Controllers
 {
     [Authorize]
-    public class CostRequestController (ICostApprovalService _costApprovalService) : Controller
+    public class CostRequestController(ICostRequestService _costRequestService, ApplicationDbContext _context) : Controller
     {
         //View Request
         public async Task<IActionResult> Index()
         {
-            return View();
+            var CostRequests = await _costRequestService.GetCostRequestsAsync();
+            return View(CostRequests);
         }
 
         //Create request
 
         public async Task<IActionResult> Create()
         {
-            var costApprovals = await _costApprovalService.GetCostApprovalsAsync();
-            var CostsList = new SelectList(costApprovals,"Id","Name");
-            var model = new CostRequestCreateVM
-            {
-                CostDate = DateOnly.FromDateTime(DateTime.Now),
-                CostApprovals = CostsList,
+            var CostRequests = await _costRequestService.GetCostRequestsAsync();
 
-            };
-
-            return View(model);
+            ViewBag.CostList = new SelectList(_context.CostCodes, "Id", "CostName");
+            ViewBag.EmployeeList = new SelectList(_context.Employees, "Id", "LastName");
+            ViewBag.EmployeeList2 = new SelectList(_context.Employees, "Id", "LastName");
+            ViewBag.CostCodeList = new SelectList(_context.CostCodes, "Id", "CostName");
+            ViewBag.ProjectList = new SelectList(_context.Projects, "Id", "ProjectName");
+            ViewBag.PeriodList = new SelectList(_context.Periods, "Id", "Name");
+            return View();
         }
         [HttpPost]
-        public IActionResult Create(CostRequestCreateVM model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CostRequestCreateVM model)
         {
-            return View();
+
+            if (ModelState.IsValid)
+            {
+                await _costRequestService.CreateCostRequest(model);
+                return RedirectToAction(nameof(Index));
+
+            }
+            ViewBag.CostList = new SelectList(_context.CostCodes, "Id", "CostName");
+            ViewBag.EmployeeList = new SelectList(
+    _context.Employees.Select(e => new
+    {
+        Id = e.Id,
+        FullName = e.FirstName + " " + e.LastName
+    }), "Id",
+    "FullName"
+);
+
+            ViewBag.CostCodeList = new SelectList(_context.CostCodes, "Id", "CostName");
+            ViewBag.ProjectList = new SelectList(_context.Projects, "Id", "ProjectName");
+            ViewBag.PeriodList = new SelectList(_context.Periods, "Id", "Name");
+            return View(model);
         }
 
         [HttpPost]
