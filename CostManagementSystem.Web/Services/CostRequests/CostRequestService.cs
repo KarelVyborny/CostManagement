@@ -22,18 +22,28 @@ namespace CostManagementSystem.Web.Services.CostRequests
            .Include(q => q.Period)
            .Include(q => q.Employee)
            .Include(q => q.Project)
+           .Include(q => q.CostRequestStatus)
            .ToListAsync();
             var viewdata = _mapper.Map<List<CostRequest>, List<CostRequestReadOnlyVM>>(data);
             return viewdata;
         }
-        public Task CancelCostRequest(int costRequestId)
+        public async Task CancelCostRequest (int costRequestId)
         {
-            throw new NotImplementedException();
+            if (costRequestId == 0)
+            {
+                return;
+            }
+            var costRequest = await _context.CostRequests.FindAsync(costRequestId);
+            costRequest.CostRequestStatusId=(int)CostRequestStatusEnum.Canceled;
+            _context.Update(costRequest);
+            await _context.SaveChangesAsync();
         }
+      
 
         public async Task CreateCostRequest(CostRequestCreateVM model)
         {
             var data = _mapper.Map<CostRequest>(model);
+            data.CostRequestStatusId = (int)CostRequestStatusEnum.Pending;
             _context.Add(data);
             await _context.SaveChangesAsync();
         }
@@ -49,5 +59,6 @@ namespace CostManagementSystem.Web.Services.CostRequests
         }
 
      
+
     }
 }

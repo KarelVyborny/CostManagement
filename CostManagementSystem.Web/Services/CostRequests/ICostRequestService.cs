@@ -11,7 +11,7 @@ namespace CostManagementSystem.Web.Services.CostRequests
         Task CreateCostRequest(CostRequestCreateVM model);
         Task<EmployeeCostRequestListVM> GetEmployeeCostRequest();
 
-        Task CancelCostRequest(int costRequestId);
+        Task CancelCostRequest (int costRequestId);
 
         Task ReviewCostRequest(ReviewCostRequestVM model);
 
