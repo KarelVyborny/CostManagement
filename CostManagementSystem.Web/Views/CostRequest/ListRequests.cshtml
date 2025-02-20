@@ -1,22 +1,67 @@
-﻿@model IEnumerable<CostManagementSystem.Web.Models.CostRequests.CostRequestReadOnlyVM>
+﻿@model EmployeeCostRequestListVM
 
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Index";
+
+    ViewBag.Title = "View Cost Requests";
 }
 
-<h3>Index</h3>
+<h3>Admin Cost Requests</h3>
+<div="row">   
+    <div="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3 class="card-title text-primary">@Model.TotalRequests</h3>
+                <h5 class="card-text">@Html.DisplayNameFor(model => model.TotalRequests)</h5>
+            </div>
+        </div>
+    </div>
 
-<p>
-    <a asp-action="Create" class="btn btn-outline-primary">Create</a>
+    <div ="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3 class="card-title text-primary">@Model.ApprovedRequests</h3>
+                <h5 class="card-text">@Html.DisplayNameFor(model => model.ApprovedRequests)</h5>
+            </div>
+        </div>
+    </div>
 
+    <div ="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3 class="card-title text-primary">@Model.PendingRequests</h3>
+                <h5 class="card-text">@Html.DisplayNameFor(model => model.PendingRequests)</h5>
+            </div>
+        </div>
+    </div>
 
-</p>
+    <div ="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3 class="card-title text-primary">@Model.RejectedRequests</h3>
+                <h5 class="card-text">@Html.DisplayNameFor(model => model.RejectedRequests)</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+                <hr/>
+<h2>Cost Requests</h2>
+<hr/>
+@if(Model.CostRequests.Count==0)
+{<div class="alert alert-info">
+    <h4> there are no request at this time</h4>
+
+</div>}
+else{
 <div class="table-responsive">
     <table class="table">
         <thead class="thead-dark">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayNameFor(model => model.CostRequests[0].Name)
                 </th>
                 <th>
                     Cost
@@ -25,28 +70,28 @@
                     Date
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Project)
+                    @Html.DisplayNameFor(model => model.CostRequests[0].Project)
                 </th>
-              @*   <th>
+                @*   <th>
                     @Html.DisplayNameFor(model => model.Employee)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Period)
                 </th> *@
                 <th>
-                    @Html.DisplayNameFor(model => model.Amount)
+                    @Html.DisplayNameFor(model => model.CostRequests[0].Amount)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.VAT)
+                    @Html.DisplayNameFor(model => model.CostRequests[0].VAT)
                 </th>
                 <th>
                     Status
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RequestorId)
+                    @Html.DisplayNameFor(model => model.CostRequests[0].RequestorId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ReviewerId)
+                    @Html.DisplayNameFor(model => model.CostRequests[0].ReviewerId)
                 </th>
                 @* <th>
                     @Html.DisplayNameFor(model => model.RequestComment)
@@ -55,7 +100,8 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model) {
+                @foreach (var item in Model.CostRequests)
+            {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -69,7 +115,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Project.ProjectName)
                     </td>
-             @*        <td>
+                    @*        <td>
                         @Html.DisplayFor(modelItem => item.Employee.FirstName) @Html.DisplayFor(modelItem => item.Employee.LastName)
                     </td>
                     <td>
@@ -97,64 +143,26 @@
                     <td>
                         @if (item.CostRequestStatus.Name == "Pending")
                         {
-                            <button data-id="@item.Id" class="btn btn-outline-danger cancelBtn" >Cancel</button>
-                     @*        <form asp-action="Cancel">
+                                <button data-id="@item.Id" class="btn btn-outline-danger">Review</button>
+
+                            @*        <form asp-action="Cancel">
                                 <input type="hidden" asp-for="@item.Id" name="id"/>
                                 <input type="submit" value="Cancel" class="btn btn-outline-danger" />
 
                             </form> *@
                         }
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                       @*  <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
                         <a asp-action="Approve" asp-route-id="@item.Id" method="post">
-                        </a>
-                        
-                            
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                            <button type="submit" class="btn btn-outline-success">Approve</button> *@
+                       @*  </a> *@
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<form id="cancelForm" asp-action="Cancel">
-    <input type="hidden" name="id" id="costRequestId" />
-
-</form>
-@section Scripts {
-    <script>
-        $(function () {
-            $(".cancelBtn").click(
-                function (e) {
-               swal({
-                   title:"Are you sure?",
-                   text:"Once canceled, you will not be able to recover this request!",
-                   icon:"warning",
-                   buttons:true,
-                   dangerMode:true
-                   }).then((confirm) => {
-                      if(confirm){
-                           var btn = $(this);
-                           var id = btn.data("id");
-                           $("#costRequestId").val(id);
-                            $("#cancelForm").submit();
-
-                       //     $("#costRequestId").val(id);
-                       //     $("form").submit();
-                       }
-
-                       // }).then((willDelete) => {
-                       // if(willDelete){
-                       //     var id = $(this).data("id-hide");
-                       //     $("#costRequestId").val(id);
-                       //     $("form").submit();
-                       // }
-
-               });
-            });
-        });
-
-       
-        
-    </script>
 }

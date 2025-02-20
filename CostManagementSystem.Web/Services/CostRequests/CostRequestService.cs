@@ -34,8 +34,8 @@ namespace CostManagementSystem.Web.Services.CostRequests
                 return;
             }
             var costRequest = await _context.CostRequests.FindAsync(costRequestId);
-            costRequest.CostRequestStatusId=(int)CostRequestStatusEnum.Canceled;
-            _context.Update(costRequest);
+            costRequest.CostRequestStatusId=(int)CostRequestStatusEnum.Canceled;//tracking
+            //_context.Update(costRequest);
             await _context.SaveChangesAsync();
         }
       
@@ -48,9 +48,28 @@ namespace CostManagementSystem.Web.Services.CostRequests
             await _context.SaveChangesAsync();
         }
 
-        public Task<EmployeeCostRequestListVM> GetEmployeeCostRequest()
+        public async Task<EmployeeCostRequestListVM> AdminGetEmployeeCostRequest()
         {
-            throw new NotImplementedException();
+           var costRequest = await _context.CostRequests
+                .Include(q => q.CostCode)
+                .Include(q => q.Period)
+                .Include(q => q.Employee)
+                .Include(q => q.Project)
+                .Include(q => q.CostRequestStatus)
+                .ToListAsync();
+
+
+
+            var viewdata = _mapper.Map<List<CostRequest>, List<CostRequestReadOnlyVM>>(costRequest);
+            var model = new EmployeeCostRequestListVM
+            {
+                TotalRequests = viewdata.Count,
+                PendingRequests = viewdata.Count(q => q.CostRequestStatusId == (int)CostRequestStatusEnum.Pending),
+                ApprovedRequests = viewdata.Count(q => q.CostRequestStatusId == (int)CostRequestStatusEnum.Approved),
+                RejectedRequests = viewdata.Count(q => q.CostRequestStatusId == (int)CostRequestStatusEnum.Rejected),
+                CostRequests = viewdata
+            };
+            return model;
         }
 
         public Task ReviewCostRequest(ReviewCostRequestVM model)

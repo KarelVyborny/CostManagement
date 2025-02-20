@@ -38,7 +38,7 @@
                                 <li> <a class="dropdown-item text-primary" asp-controller="CostRequest" asp-action="Create">Create</a>  </li>
                                 <li> <a class="dropdown-item text-primary" asp-controller="CostRequest" asp-action="Delete">Delete</a>  </li>
                                 <li> <a class="dropdown-item text-primary" asp-controller="CostRequest" asp-action="Edit">Edit</a></li>
-
+                                <li> <a class="dropdown-item text-primary" asp-controller="CostRequest" asp-action="ListRequests">List</a></li>
 
                             </ul>
                         </li>
@@ -85,9 +85,13 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+  
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -9,11 +9,10 @@ namespace CostManagementSystem.Web.Services.CostRequests
         Task<List<CostRequestReadOnlyVM>> GetCostRequestsAsync();
 
         Task CreateCostRequest(CostRequestCreateVM model);
-        Task<EmployeeCostRequestListVM> GetEmployeeCostRequest();
 
         Task CancelCostRequest (int costRequestId);
 
         Task ReviewCostRequest(ReviewCostRequestVM model);
-
+        Task<EmployeeCostRequestListVM> AdminGetEmployeeCostRequest();
     }
 }

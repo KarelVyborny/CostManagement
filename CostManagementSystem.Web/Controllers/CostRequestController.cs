@@ -75,6 +75,11 @@ namespace CostManagementSystem.Web.Controllers
             
         }
         //admin
+        public async Task<IActionResult> ListRequests()
+        {
+            var CostRequests = await _costRequestService.AdminGetEmployeeCostRequest();
+            return View(CostRequests);
+        }
         public IActionResult Approve(int CostRequestId)
         {
             return View();
