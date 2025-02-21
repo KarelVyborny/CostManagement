@@ -88,10 +88,17 @@ namespace CostManagementSystem.Web.Controllers
         {
             return View();
         }
-        public IActionResult Review(int CostRequestId)
+        public async Task<IActionResult> Review(int id)
         {
-            return View();
+            var model = await _costRequestService.GetCostRequestForReview(id);
+            return View(model);
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Review(int id,bool approved)
+        {
+                await _costRequestService.ReviewCostRequest(id, approved);
+            return RedirectToAction(nameof(ListRequests));
+        }
     }
 }

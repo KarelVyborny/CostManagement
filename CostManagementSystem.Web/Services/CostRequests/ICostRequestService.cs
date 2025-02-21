@@ -12,7 +12,8 @@ namespace CostManagementSystem.Web.Services.CostRequests
 
         Task CancelCostRequest (int costRequestId);
 
-        Task ReviewCostRequest(ReviewCostRequestVM model);
         Task<EmployeeCostRequestListVM> AdminGetEmployeeCostRequest();
+        Task<ReviewCostRequestVM> GetCostRequestForReview(int id);
+        Task ReviewCostRequest (int costRequestId, bool approved);
     }
 }

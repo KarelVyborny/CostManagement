@@ -1,0 +1,72 @@
+﻿@model ReviewCostRequestVM
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h3> Cost Request Review</h3>
+
+<div class="table-responsive">
+    <table class="table">
+
+
+        <tbody>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CostCode)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CostCode)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+            </dl>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-outline-dark approvalBtn" data-id="@Model.Id" data-approved="true">Approve</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-outline-dark approvalBtn" data-id="@Model.Id" data-approved="false">Decline</button>
+        </div>
+        <a class="btn btn-outline-light accept-policy" asp-action="ListRequest">Back to List</a>
+    </div>
+</div>
+<form id="approvalForm" asp-action="Review">
+    <input type="hidden" id="costRequestId" name="costRequestId" />
+    <input type="hidden" id="isApproved" name="isApproved" />
+</form>
+@section Scripts
+{
+    <script>
+    $(function () {
+        $(".approvalBtn").click(
+            function (e) {
+           swal({
+               title:"Are you sure?",
+               text:"Please, confirm the approval decision",
+               icon:"warning",
+               buttons:true,
+               dangerMode:true
+               }).then((confirm) => {
+                  if(confirm){
+                       var btn = $(this);
+                       var id = btn.data("id");
+                            var isApproved = btn.data("approved");
+                       $("#costRequestId").val(id);
+                            $("#isApproved").val(isApproved);
+                        $("#approvalForm").submit();
+                  }
+           });
+        });
+    });
+    </script>
+    }
+

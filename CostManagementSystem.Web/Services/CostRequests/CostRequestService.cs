@@ -72,12 +72,51 @@ namespace CostManagementSystem.Web.Services.CostRequests
             return model;
         }
 
-        public Task ReviewCostRequest(ReviewCostRequestVM model)
+        public async Task<ReviewCostRequestVM> GetCostRequestForReview (int id)
         {
-            throw new NotImplementedException();
-        }
+            var costRequest = await _context.CostRequests
+               .Include(q => q.CostCode)
+                .Include(q => q.Period)
+                .Include(q => q.Employee)
+                .Include(q => q.Project)
+                .Include(q => q.CostRequestStatus)
+             .FirstAsync(q => q.Id == id);
 
-     
+            var model = new ReviewCostRequestVM
+            {
+                Id = costRequest.Id,
+                Name = costRequest.Name,
+                CostCodeId = costRequest.CostCodeId,
+                CostDate = costRequest.CostDate,
+                ProjectId = costRequest.ProjectId,
+                EmployeeId = costRequest.EmployeeId,
+                PeriodId = costRequest.PeriodId,
+                Amount = costRequest.Amount,
+                VAT = costRequest.VAT,
+                CostRequestStatusId = costRequest.CostRequestStatusId,
+                RequestorId = costRequest.RequestorId,
+                ReviewerId = costRequest.ReviewerId,
+                RequestComment = costRequest.RequestComment
+            };
+            return model;
+        }
+        public async Task ReviewCostRequest (int costRequestId, bool approved)
+        {
+           var costRequest = await _context.CostRequests.FindAsync(costRequestId);
+            if (approved)
+            {
+                costRequest.CostRequestStatusId = (int)CostRequestStatusEnum.Approved;
+                costRequest.ReviewerId = 1;
+            }
+            else
+            {
+                costRequest.CostRequestStatusId = (int)CostRequestStatusEnum.Rejected;
+            }
+            await _context.SaveChangesAsync();  
+                     
+           
+        }
+      
 
     }
 }

@@ -11,7 +11,7 @@ namespace CostManagementSystem.Web.Models.CostRequests
 
     public class CostRequestReadOnlyVM
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         [Display(Name = "Cost Code")]
         public CostCode? CostCode { get; set; }
@@ -43,7 +43,7 @@ namespace CostManagementSystem.Web.Models.CostRequests
         public int? RequestorId { get; set; }
         public EmployeeVM? Reviewer { get; set; }
         [Display(Name = "Reviewer")]
-        public string? ReviewerId { get; set; }
+        public int? ReviewerId { get; set; }
 
         [Display(Name = "Additional Information")]
         public string? RequestComment { get; set; }
