@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Xml;
 using CostManagementSystem.Web.Models.CostApproval;
 using CostManagementSystem.Web.Data.Configurations;
+using Microsoft.AspNetCore.Identity;
 
 namespace CostManagementSystem.Web.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -27,7 +28,40 @@ namespace CostManagementSystem.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
+
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Id = "8a793573-243a-4762-9d80-bf54988c0908", Name = "Admin", NormalizedName = "ADMIN" },
+               new IdentityRole { Id = "102cc457-52f5-4dc2-81b9-a8c207d5511d", Name = "Supervisor", NormalizedName = "SUPERVISOR" },
+
+                new IdentityRole { Id = "208142f9-e00a-4838-a6b0-c97ebaf1ee41", Name = "User", NormalizedName = "USER" }
+            );
+            //var hasher = new PasswordHasher<ApplicationUser>();
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            {
+                Id = "4ad37f04-06ad-4419-9cc4-071dfc0aef79",
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
+                Email = "ADMIN@LOCALHOST.COM",
+                NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                EmailConfirmed = true,
+                PasswordHash = "AQAAAAIAAYagAAAAEAjIpFqaJLTYjRFYEFXVjXNcUhVxGPxTXHo9Iq0Ck + OJXkUvMvYfIxKrRGDCmBBM3g ==",
+                ConcurrencyStamp = "stamp-admin-user", // Adding a static value
+
+                SecurityStamp = "SECURITYSTAMP", // Adding a static value
+                FirstName = "Default",
+                LastName = "Admin",
+                DateOfBirth = new DateOnly(1950, 1, 1)
+
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string> { RoleId = "8a793573-243a-4762-9d80-bf54988c0908", UserId = "4ad37f04-06ad-4419-9cc4-071dfc0aef79" }
+            );
+
 
             // Seed Data for Employees Table
             modelBuilder.Entity<Employee>().HasData(

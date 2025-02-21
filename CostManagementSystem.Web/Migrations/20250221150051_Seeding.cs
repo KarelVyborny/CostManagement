@@ -32,6 +32,9 @@ namespace CostManagementSystem.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -332,6 +335,21 @@ namespace CostManagementSystem.Web.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "102cc457-52f5-4dc2-81b9-a8c207d5511d", null, "Supervisor", "SUPERVISOR" },
+                    { "208142f9-e00a-4838-a6b0-c97ebaf1ee41", null, "User", "USER" },
+                    { "8a793573-243a-4762-9d80-bf54988c0908", null, "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "4ad37f04-06ad-4419-9cc4-071dfc0aef79", 0, "stamp-admin-user", new DateOnly(1950, 1, 1), "ADMIN@LOCALHOST.COM", true, "Default", "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN", "AQAAAAIAAYagAAAAEAjIpFqaJLTYjRFYEFXVjXNcUhVxGPxTXHo9Iq0Ck + OJXkUvMvYfIxKrRGDCmBBM3g ==", null, false, "SECURITYSTAMP", false, "admin" });
+
+            migrationBuilder.InsertData(
                 table: "CostCodes",
                 columns: new[] { "Id", "CostGroup", "CostName" },
                 values: new object[,]
@@ -384,6 +402,11 @@ namespace CostManagementSystem.Web.Migrations
                     { 2, null, "Project 2", null },
                     { 3, null, "Project 3", null }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "8a793573-243a-4762-9d80-bf54988c0908", "4ad37f04-06ad-4419-9cc4-071dfc0aef79" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -12,6 +12,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using CostManagementSystem.Web.Services.CostCode;
 
 namespace CostManagementSystem.Web.Controllers;
+[Authorize(Roles = "Admin,Supervisor")]
 
 public class CostCodesController(ICostCodesService _costCodesService) : Controller
 {
