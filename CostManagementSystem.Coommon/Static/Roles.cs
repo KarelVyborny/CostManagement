@@ -1,4 +1,4 @@
-﻿namespace CostManagementSystem.Web.Controllers
+﻿namespace CostManagementSystem.Common.Static
 {
     public static class Roles
     {

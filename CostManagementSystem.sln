@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.34902.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CostManagementSystem.Web", "CostManagementSystem.Web\CostManagementSystem.Web.csproj", "{ED2B0C5F-9B3B-4734-81EC-A90415FF2EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CostManagementSystem.Coommon", "CostManagementSystem.Coommon\CostManagementSystem.Coommon.csproj", "{2912A9BD-895B-4968-A743-7750F0667055}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CostManagementSystem.Common", "CostManagementSystem.Coommon\CostManagementSystem.Common.csproj", "{2912A9BD-895B-4968-A743-7750F0667055}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
