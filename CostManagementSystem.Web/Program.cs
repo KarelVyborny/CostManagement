@@ -5,11 +5,19 @@ using CostManagementSystem.Web.Services.CostCode;
 using CostManagementSystem.Web.Services.CostRequests;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Host.UseSerilog((ctx, config) => 
+    config.WriteTo
+    .Console()
+    .ReadFrom.Configuration(ctx.Configuration));
 // Add services to the container.
+
+
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options
