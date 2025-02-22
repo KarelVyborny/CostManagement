@@ -1,9 +1,6 @@
-﻿using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostApproval;
+﻿using CostManagementSystem.Web.Models.CostApproval;
 using CostManagementSystem.Web.Models.CostCodes;
 using CostManagementSystem.Web.Services.Cost_Approval_Workflow;
-using CostManagementSystem.Web.Services.CostCode;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +10,7 @@ public class CostApprovalController(ICostApprovalService _costApprovalService, A
 {
     public async Task<IActionResult> Index()
     {
-       
+
         var view = await _costApprovalService.GetCostApprovalsAsync();
         return View(view);
     }
@@ -76,7 +73,7 @@ public class CostApprovalController(ICostApprovalService _costApprovalService, A
             };
 
             await _costApprovalService.AddAsync(costApprovalCreate);
-            
+
             return RedirectToAction(nameof(Index));
         }
 
