@@ -6,22 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CostManagementSystem.Web.Data;
+using CostManagementSystem.Web.Services.Projects;
+using CostManagementSystem.Web.Services.CostCode;
 
 namespace CostManagementSystem.Web.Controllers
 {
-    public class ProjectsController : Controller
+    public class ProjectsController(ApplicationDbContext _context, IProjectService _service) : Controller
     {
-        private readonly ApplicationDbContext _context;
 
-        public ProjectsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+
 
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Projects.ToListAsync());
+            var viewdata = await _service.GetAllAsync();
+
+            //var data = await _context.CostCodes.ToListAsync();
+            //var viewData = data.Select(x => new IndexVM
+            //{
+            //    Id = x.Id,
+            //    CostName = x.CostName,
+            //    CostGroup = x.CostGroup
+            //});
+            return View(viewdata);
         }
 
         // GET: Projects/Details/5

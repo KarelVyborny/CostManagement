@@ -1,4 +1,4 @@
-import '../libs/Treemap-squared'
+import '../lib/Treemap-squared'
 import Graphics from '../modules/Graphics'
 import Animations from '../modules/Animations'
 import Fill from '../modules/Fill'

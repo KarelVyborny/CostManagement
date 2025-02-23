@@ -2,7 +2,7 @@
 using CostManagementSystem.Web.Models.CostCodes;
 using CostManagementSystem.Web.Models.Employee;
 using CostManagementSystem.Web.Models.Period;
-using CostManagementSystem.Web.Models.Project;
+using CostManagementSystem.Web.Models.Projects;
 using System.ComponentModel.DataAnnotations;
 
 namespace CostManagementSystem.Web.Models.CostApproval

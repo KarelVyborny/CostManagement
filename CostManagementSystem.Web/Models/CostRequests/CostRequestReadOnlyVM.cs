@@ -2,7 +2,7 @@
 using CostManagementSystem.Web.Models.CostRequestStatuses;
 using CostManagementSystem.Web.Models.Employee;
 using CostManagementSystem.Web.Models.Period;
-using CostManagementSystem.Web.Models.Project;
+using CostManagementSystem.Web.Models.Projects;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 

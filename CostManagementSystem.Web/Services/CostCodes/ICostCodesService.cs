@@ -1,16 +1,15 @@
 ﻿using CostManagementSystem.Web.Models.CostCodes;
 
-namespace CostManagementSystem.Web.Services.CostCode
+namespace CostManagementSystem.Web.Services.CostCode;
+
+public interface ICostCodesService
 {
-    public interface ICostCodesService
-    {
-        Task AddAsync(CostCodeCreateVM costCodeCreate);
-        Task<bool> CheckIfCostCodeExists(string name);
-        Task<bool> CheckIfCostCodeExistsForEdit(CostCodeEditVM costCodeEdit);
-        bool CostCodeExists(int id);
-        Task EditAsync(CostCodeEditVM model);
-        Task<List<CostCodeReadOnlyVM>> GetAllAsync();
-        Task<T?> GetAsync<T>(int id) where T : class;
-        Task Remove(int id);
-    }
+    Task AddAsync(CostCodeCreateVM costCodeCreate);
+    Task<bool> CheckIfCostCodeExists(string name);
+    Task<bool> CheckIfCostCodeExistsForEdit(CostCodeEditVM costCodeEdit);
+    bool CostCodeExists(int id);
+    Task EditAsync(CostCodeEditVM model);
+    Task<List<CostCodeReadOnlyVM>> GetAllAsync();
+    Task<T?> GetAsync<T>(int id) where T : class;
+    Task Remove(int id);
 }

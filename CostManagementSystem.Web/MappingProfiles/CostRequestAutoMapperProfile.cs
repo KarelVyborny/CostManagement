@@ -6,7 +6,7 @@ using CostManagementSystem.Web.Models.CostRequests;
 using CostManagementSystem.Web.Models.CostRequestStatuses;
 using CostManagementSystem.Web.Models.Employee;
 using CostManagementSystem.Web.Models.Period;
-using CostManagementSystem.Web.Models.Project;
+using CostManagementSystem.Web.Models.Projects;
 
 namespace CostManagementSystem.Web.MappingProfiles
 {

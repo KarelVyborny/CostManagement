@@ -3,6 +3,7 @@ using CostManagementSystem.Web.Services;
 using CostManagementSystem.Web.Services.Cost_Approval_Workflow;
 using CostManagementSystem.Web.Services.CostCode;
 using CostManagementSystem.Web.Services.CostRequests;
+using CostManagementSystem.Web.Services.Projects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -28,6 +29,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<ICostCodesService, CostCodesService>();
 builder.Services.AddScoped<ICostApprovalService,CostApprovalService>();
 builder.Services.AddScoped<ICostRequestService, CostRequestService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddTransient<IEmailSender,EmailSender>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

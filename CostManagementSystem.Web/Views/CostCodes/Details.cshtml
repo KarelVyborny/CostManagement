@@ -1,7 +1,7 @@
 ﻿@model CostCodeReadOnlyVM
 @{
     ViewData["Title"] = $"{Model.CostName} Details";
-    Layout = "_Layout";
+    Layout = "_AdminLayout";
 }
 
 <h1>@Model.CostName</h1>
@@ -28,3 +28,8 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-primary">Edit</a> |
     <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

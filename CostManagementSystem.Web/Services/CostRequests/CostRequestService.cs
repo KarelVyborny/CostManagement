@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostApproval;
 using CostManagementSystem.Web.Models.CostRequests;
 using Microsoft.EntityFrameworkCore;
 
