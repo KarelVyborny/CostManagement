@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CostManagementSystem.Web.Controllers
 {
-    [Authorize]
     public class CostRequestController(ICostRequestService _costRequestService, ApplicationDbContext _context) : Controller
     {
         //View Request
