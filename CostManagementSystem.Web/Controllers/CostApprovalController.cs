@@ -1,10 +1,10 @@
-﻿using CostManagementSystem.Web.Models.CostApproval;
-using CostManagementSystem.Web.Models.CostCodes;
-using CostManagementSystem.Web.Services.Cost_Approval_Workflow;
+﻿using CostManagementSystem.Application.Models.CostApproval;
+using CostManagementSystem.Application.Models.CostCodes;
+using CostManagementSystem.Application.Services.Cost_Approval_Workflow;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace CostManagementSystem.Web.Controllers;
+namespace CostManagementSystem.Application.Controllers;
 
 public class CostApprovalController(ICostApprovalService _costApprovalService, ApplicationDbContext _context) : Controller
 {

@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
-using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostCodes;
+using CostManagementSystem.Application.Models.CostCodes;
 
-namespace CostManagementSystem.Web.MappingProfiles
+namespace CostManagementSystem.Application.MappingProfiles
 {
     public class CostCodeAutoMapperProfile : Profile
     {
-        public CostCodeAutoMapperProfile() 
+        public CostCodeAutoMapperProfile()
         {
             CreateMap<CostCode, CostCodeReadOnlyVM>();
             CreateMap<CostCodeCreateVM, CostCode>();
             CreateMap<CostCodeEditVM, CostCode>().ReverseMap();
-        
+
 
             //CreateMap<Cost, CostReadOnlyVM>();
             ////.ForMember(dest => dest.Days, opt => opt.MapFrom(src => src.Amount));

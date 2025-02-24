@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
-using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostApproval;
-using CostManagementSystem.Web.Models.CostCodes;
-using CostManagementSystem.Web.Models.CostRequests;
-using CostManagementSystem.Web.Models.CostRequestStatuses;
-using CostManagementSystem.Web.Models.Employee;
-using CostManagementSystem.Web.Models.Period;
-using CostManagementSystem.Web.Models.Projects;
+using CostManagementSystem.Application.Models.CostCodes;
+using CostManagementSystem.Application.Models.CostRequests;
+using CostManagementSystem.Application.Models.CostRequestStatuses;
+using CostManagementSystem.Application.Models.Employee;
+using CostManagementSystem.Application.Models.Period;
+using CostManagementSystem.Application.Models.Projects;
 
-namespace CostManagementSystem.Web.MappingProfiles
+namespace CostManagementSystem.Application.MappingProfiles
 {
     public class CostRequestAutoMapperProfile : Profile
     {
@@ -23,7 +21,7 @@ namespace CostManagementSystem.Web.MappingProfiles
             CreateMap<Project, ProjectVM>();
             CreateMap<CostCode, CostCodeReadOnlyVM>();
             CreateMap<CostRequestCreateVM, CostRequest>();
-            CreateMap<CostRequestStatus,CostRequestStatusVM>();
+            CreateMap<CostRequestStatus, CostRequestStatusVM>();
         }
     }
 

@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CostManagementSystem.Application.Services.Projects;
 using Microsoft.EntityFrameworkCore;
-using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Services.Projects;
-using CostManagementSystem.Web.Services.CostCode;
 
-namespace CostManagementSystem.Web.Controllers
+namespace CostManagementSystem.Application.Controllers
 {
     public class ProjectsController(ApplicationDbContext _context, IProjectService _service) : Controller
     {

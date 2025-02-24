@@ -1,10 +1,8 @@
-using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Services;
-using CostManagementSystem.Web.Services.Cost_Approval_Workflow;
-using CostManagementSystem.Web.Services.CostCode;
-using CostManagementSystem.Web.Services.CostRequests;
-using CostManagementSystem.Web.Services.Projects;
-using Microsoft.AspNetCore.Identity;
+using CostManagementSystem.Application.Services;
+using CostManagementSystem.Application.Services.Cost_Approval_Workflow;
+using CostManagementSystem.Application.Services.CostCode;
+using CostManagementSystem.Application.Services.CostRequests;
+using CostManagementSystem.Application.Services.Projects;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Reflection;
@@ -12,7 +10,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Host.UseSerilog((ctx, config) => 
+builder.Host.UseSerilog((ctx, config) =>
     config.WriteTo
     .Console()
     .ReadFrom.Configuration(ctx.Configuration));
@@ -27,10 +25,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<ICostCodesService, CostCodesService>();
-builder.Services.AddScoped<ICostApprovalService,CostApprovalService>();
+builder.Services.AddScoped<ICostApprovalService, CostApprovalService>();
 builder.Services.AddScoped<ICostRequestService, CostRequestService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddTransient<IEmailSender,EmailSender>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

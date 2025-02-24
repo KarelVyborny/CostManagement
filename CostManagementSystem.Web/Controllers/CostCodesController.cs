@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using CostManagementSystem.Application.Models.CostCodes;
+using CostManagementSystem.Application.Services.CostCode;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostCodes;
-using AutoMapper;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using CostManagementSystem.Web.Services.CostCode;
 
-namespace CostManagementSystem.Web.Controllers;
+namespace CostManagementSystem.Application.Controllers;
 //[Authorize(Roles = "Admin,Supervisor")]
 
 public class CostCodesController(ICostCodesService _costCodesService) : Controller
@@ -167,5 +159,5 @@ public class CostCodesController(ICostCodesService _costCodesService) : Controll
 
 }
 
-    
+
 

@@ -1,15 +1,8 @@
-﻿using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostApproval;
-using CostManagementSystem.Web.Models.CostRequests;
-using CostManagementSystem.Web.Services.Cost_Approval_Workflow;
-using CostManagementSystem.Web.Services.CostCode;
-using CostManagementSystem.Web.Services.CostRequests;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using CostManagementSystem.Application.Models.CostRequests;
+using CostManagementSystem.Application.Services.CostRequests;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
-namespace CostManagementSystem.Web.Controllers
+namespace CostManagementSystem.Application.Controllers
 {
     public class CostRequestController(ICostRequestService _costRequestService, ApplicationDbContext _context) : Controller
     {
@@ -27,7 +20,7 @@ namespace CostManagementSystem.Web.Controllers
             var CostRequests = await _costRequestService.GetCostRequestsAsync();
 
             ViewBag.CostList = new SelectList(_context.CostCodes, "Id", "CostName");
-            ViewBag.EmployeeList = new SelectList(_context.Employees.Select(e => new { Id = e.Id, FullName = e.FirstName + " " + e.LastName }), "Id", "FullName"); 
+            ViewBag.EmployeeList = new SelectList(_context.Employees.Select(e => new { Id = e.Id, FullName = e.FirstName + " " + e.LastName }), "Id", "FullName");
             ViewBag.EmployeeList2 = new SelectList(_context.Employees.Select(e => new { Id = e.Id, FullName = e.FirstName + " " + e.LastName }), "Id", "FullName");
             ViewBag.CostCodeList = new SelectList(_context.CostCodes, "Id", "CostName");
             ViewBag.ProjectList = new SelectList(_context.Projects, "Id", "ProjectName");
@@ -63,15 +56,15 @@ namespace CostManagementSystem.Web.Controllers
                 return NotFound();
             }
             await _costRequestService.CancelCostRequest(id);
-           
+
             //if (await _costCodesService.CheckIfCostCodeExistsForEdit(costCodeEdit))
             //{
             //    ModelState.AddModelError(nameof(CostCodeEditVM.CostName), "Cost Code already exists");
             //}
 
-                return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
 
-            
+
         }
         //admin
         public async Task<IActionResult> ListRequests()
@@ -94,9 +87,9 @@ namespace CostManagementSystem.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Review(int id,bool approved)
+        public async Task<IActionResult> Review(int id, bool approved)
         {
-                await _costRequestService.ReviewCostRequest(id, approved);
+            await _costRequestService.ReviewCostRequest(id, approved);
             return RedirectToAction(nameof(ListRequests));
         }
     }

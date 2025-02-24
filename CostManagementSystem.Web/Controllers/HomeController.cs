@@ -1,8 +1,7 @@
-using CostManagementSystem.Web.Models;
-using Microsoft.AspNetCore.Mvc;
+using CostManagementSystem.Application.Models;
 using System.Diagnostics;
 
-namespace CostManagementSystem.Web.Controllers
+namespace CostManagementSystem.Application.Controllers
 {
     public class HomeController : Controller
     {

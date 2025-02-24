@@ -3,7 +3,6 @@
 #nullable disable
 
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 
 namespace CostManagementSystem.Web.Areas.Identity.Pages.Account
 {
@@ -39,7 +38,7 @@ namespace CostManagementSystem.Web.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public InputModel Input { get; set; }= new InputModel();
+        public InputModel Input { get; set; } = new InputModel();
         public string[] RoleNames { get; set; }
 
 
@@ -96,7 +95,7 @@ namespace CostManagementSystem.Web.Areas.Identity.Pages.Account
             public string LastName { get; set; }
             [Display(Name = "Date of Birth")]
             [DataType(DataType.Date)]
-            public DateOnly DateOfBirth { get; set; }   
+            public DateOnly DateOfBirth { get; set; }
             public string RoleName { get; set; }
             //public string[] RoleNames { get; set; }
 
@@ -136,7 +135,7 @@ namespace CostManagementSystem.Web.Areas.Identity.Pages.Account
 
                     {
                         await _userManager.AddToRolesAsync(user, ["user", "Supervisor"]);
-                            }
+                    }
                     else
                     {
                         await _userManager.AddToRoleAsync(user, "user");

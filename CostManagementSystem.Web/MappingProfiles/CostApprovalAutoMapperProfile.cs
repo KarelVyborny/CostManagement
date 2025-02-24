@@ -1,18 +1,17 @@
 ﻿using AutoMapper;
-using CostManagementSystem.Web.Data;
-using CostManagementSystem.Web.Models.CostApproval;
-using CostManagementSystem.Web.Models.CostCodes;
-using CostManagementSystem.Web.Models.Employee;
-using CostManagementSystem.Web.Models.Period;
-using CostManagementSystem.Web.Models.Projects;
+using CostManagementSystem.Application.Models.CostApproval;
+using CostManagementSystem.Application.Models.CostCodes;
+using CostManagementSystem.Application.Models.Employee;
+using CostManagementSystem.Application.Models.Period;
+using CostManagementSystem.Application.Models.Projects;
 
-namespace CostManagementSystem.Web.MappingProfiles
+namespace CostManagementSystem.Application.MappingProfiles
 {
     public class CostApprovalAutoMapperProfile : Profile
     {
         public CostApprovalAutoMapperProfile()
         {
-       
+
             CreateMap<CostApproval, CostApprovalReadOnlyVM>();
             CreateMap<Employee, EmployeeVM>();
             CreateMap<Period, PeriodVM>();

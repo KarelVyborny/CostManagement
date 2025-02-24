@@ -1,7 +1,6 @@
-﻿using CostManagementSystem.Web.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using CostManagementSystem.Application.Models;
 
-namespace CostManagementSystem.Web.Controllers
+namespace CostManagementSystem.Application.Controllers
 {
     public class TestController : Controller
     {
@@ -10,7 +9,7 @@ namespace CostManagementSystem.Web.Controllers
             var data = new TestViewModel
             {
                 Name = "Student of MVC Mastery",
-                DateOfBirth = new DateTime(1954,12,01)
+                DateOfBirth = new DateTime(1954, 12, 01)
             };
             return View(data);
         }
