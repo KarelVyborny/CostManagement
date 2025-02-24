@@ -3248,7 +3248,7 @@ textarea.form-control-lg {
   box-shadow: none;
 }
 
-.btn-primary {
+.btn-outline-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #0085db;
   --bs-btn-border-color: #0085db;

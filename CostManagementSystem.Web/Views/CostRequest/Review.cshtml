@@ -35,8 +35,10 @@
         </div>
         <div class="col">
             <button type="button" class="btn btn-outline-dark approvalBtn" data-id="@Model.Id" data-approved="false">Decline</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+
         </div>
-        <a class="btn btn-outline-light accept-policy" asp-action="ListRequest">Back to List</a>
+       
     </div>
 </div>
 <form id="approvalForm" asp-action="Review">
