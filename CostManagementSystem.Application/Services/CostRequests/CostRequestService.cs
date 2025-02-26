@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CostManagementSystem.Data;
 using CostManagementSystem.Application.Models.CostRequests;
-using CostManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace CostManagementSystem.Application.Services.CostRequests

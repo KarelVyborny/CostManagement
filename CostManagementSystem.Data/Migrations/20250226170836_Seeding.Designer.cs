@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CostManagementSystem.Application.Migrations
+namespace CostManagementSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250221150051_Seeding")]
+    [Migration("20250226170836_Seeding")]
     partial class Seeding
     {
         /// <inheritdoc />
@@ -20,12 +20,12 @@ namespace CostManagementSystem.Application.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.ApplicationUser", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -122,7 +122,7 @@ namespace CostManagementSystem.Application.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostApproval", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.CostApproval", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -172,7 +172,7 @@ namespace CostManagementSystem.Application.Migrations
                     b.ToTable("CostApprovals");
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostCode", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.CostCode", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -214,7 +214,7 @@ namespace CostManagementSystem.Application.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostRequest", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.CostRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,7 +278,7 @@ namespace CostManagementSystem.Application.Migrations
                     b.ToTable("CostRequests");
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostRequestStatus", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.CostRequestStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -318,7 +318,7 @@ namespace CostManagementSystem.Application.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.Employee", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -365,7 +365,7 @@ namespace CostManagementSystem.Application.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.Period", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.Period", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -431,7 +431,7 @@ namespace CostManagementSystem.Application.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.Project", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -635,21 +635,21 @@ namespace CostManagementSystem.Application.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostApproval", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.CostApproval", b =>
                 {
-                    b.HasOne("CostManagementSystem.Web.Data.CostCode", "CostCode")
+                    b.HasOne("CostManagementSystem.Data.CostCode", "CostCode")
                         .WithMany()
                         .HasForeignKey("CostCodeId");
 
-                    b.HasOne("CostManagementSystem.Web.Data.Employee", "Employee")
+                    b.HasOne("CostManagementSystem.Data.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId");
 
-                    b.HasOne("CostManagementSystem.Web.Data.Period", "Period")
+                    b.HasOne("CostManagementSystem.Data.Period", "Period")
                         .WithMany()
                         .HasForeignKey("PeriodId");
 
-                    b.HasOne("CostManagementSystem.Web.Data.Project", "Project")
+                    b.HasOne("CostManagementSystem.Data.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
 
@@ -662,35 +662,35 @@ namespace CostManagementSystem.Application.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("CostManagementSystem.Web.Data.CostRequest", b =>
+            modelBuilder.Entity("CostManagementSystem.Data.CostRequest", b =>
                 {
-                    b.HasOne("CostManagementSystem.Web.Data.CostCode", "CostCode")
+                    b.HasOne("CostManagementSystem.Data.CostCode", "CostCode")
                         .WithMany()
                         .HasForeignKey("CostCodeId");
 
-                    b.HasOne("CostManagementSystem.Web.Data.CostRequestStatus", "CostRequestStatus")
+                    b.HasOne("CostManagementSystem.Data.CostRequestStatus", "CostRequestStatus")
                         .WithMany()
                         .HasForeignKey("CostRequestStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CostManagementSystem.Web.Data.Employee", "Employee")
+                    b.HasOne("CostManagementSystem.Data.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId");
 
-                    b.HasOne("CostManagementSystem.Web.Data.Period", "Period")
+                    b.HasOne("CostManagementSystem.Data.Period", "Period")
                         .WithMany()
                         .HasForeignKey("PeriodId");
 
-                    b.HasOne("CostManagementSystem.Web.Data.Project", "Project")
+                    b.HasOne("CostManagementSystem.Data.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
 
-                    b.HasOne("CostManagementSystem.Web.Data.Employee", "Requestor")
+                    b.HasOne("CostManagementSystem.Data.Employee", "Requestor")
                         .WithMany()
                         .HasForeignKey("RequestorId");
 
-                    b.HasOne("CostManagementSystem.Web.Data.Employee", "Reviewer")
+                    b.HasOne("CostManagementSystem.Data.Employee", "Reviewer")
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
@@ -720,7 +720,7 @@ namespace CostManagementSystem.Application.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CostManagementSystem.Web.Data.ApplicationUser", null)
+                    b.HasOne("CostManagementSystem.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -729,7 +729,7 @@ namespace CostManagementSystem.Application.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CostManagementSystem.Web.Data.ApplicationUser", null)
+                    b.HasOne("CostManagementSystem.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -744,7 +744,7 @@ namespace CostManagementSystem.Application.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CostManagementSystem.Web.Data.ApplicationUser", null)
+                    b.HasOne("CostManagementSystem.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -753,7 +753,7 @@ namespace CostManagementSystem.Application.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("CostManagementSystem.Web.Data.ApplicationUser", null)
+                    b.HasOne("CostManagementSystem.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

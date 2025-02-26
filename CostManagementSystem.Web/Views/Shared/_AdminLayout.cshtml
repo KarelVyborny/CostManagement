@@ -8,10 +8,11 @@
 
   <link rel="shortcut icon" type="image/png" href="~/images/logos/favicon.png" /> 
     <link rel="stylesheet" href="~/css/styles.min.css" />
-@*     <link rel="shortcut icon" type="image/png" href="~/images/logos/favicon.png" />
- *@
+
    * <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CostManagementSystem.Web.styles.css" asp-append-version="true" /> 
+    <link rel="stylesheet" href="~/Shared/_AdminLayout.cshtml.css">
+
 </head>
 
 <body>
@@ -255,26 +256,30 @@
                             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
                             <span class="hide-menu">Charts</span>
                         </li>
-                    
 
+                       
                         <li>
                             <span class="sidebar-divider lg"></span>
                         </li>
                         <li class="nav-small-cap">
-                            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
                             <span class="hide-menu">Auth</span>
                         </li>
+                  @*       <a class="sidebar-link primary-hover-bg" href="./index.html" aria-expanded="false">
+                            <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Dashboard</span> *@
+
+
                         <li class="sidebar-item">
-                            <a class="sidebar-link primary-hover-bg" href="./authentication-login.html" aria-expanded="false">
-                                <iconify-icon icon="solar:login-3-line-duotone"></iconify-icon>
+                            <a class="sidebar-link primary-hover-bg" asp-area="Identity" asp-page="/Account/Login">
+                            <iconify-icon icon="solar:login-3-line-duotone"></iconify-icon>
                                 <span class="hide-menu">Login</span>
                             </a>
                         </li>
                      
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link primary-hover-bg" href="./authentication-register.html" aria-expanded="false">
-                                <iconify-icon icon="solar:user-plus-rounded-line-duotone"></iconify-icon>
+                            <a class="sidebar-link primary-hover-bg" asp-area="Identity" asp-page="/Account/Register">
+                            <iconify-icon icon="solar:user-plus-rounded-line-duotone"></iconify-icon>
                                 <span class="hide-menu">Register</span>
                             </a>
                         </li>
@@ -319,8 +324,6 @@
     <script src="~/js/sidebarmenu.js"></script>
     <script src="~/js/app.min.js"></script>
     <script src="~/lib/simplebar/dist/simplebar.js"></script>
-  
-
 
     @await RenderSectionAsync("Scripts", required: false)
 
