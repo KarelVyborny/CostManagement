@@ -9,7 +9,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// logging
 builder.Host.UseSerilog((ctx, config) =>
     config.WriteTo
     .Console()
@@ -19,7 +19,7 @@ builder.Host.UseSerilog((ctx, config) =>
 
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options
+builder.Services.AddDbContext<ApplicationDbContext>(options => options 
 .UseSqlServer(connectionString));
 
 

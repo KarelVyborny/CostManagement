@@ -72,13 +72,12 @@ else{
                 <th>
                     @Html.DisplayNameFor(model => model.CostRequests[0].Project)
                 </th>
-                @*   <th>
-                    @Html.DisplayNameFor(model => model.Employee)
+                <th>
+                        @Html.DisplayNameFor(model => model.CostRequests[0].Employee)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Period)
-                </th> *@
-                <th>
+                        @Html.DisplayNameFor(model => model.CostRequests[0].Period) 
+                </th>                 <th>
                     @Html.DisplayNameFor(model => model.CostRequests[0].Amount)
                 </th>
                 <th>
@@ -93,9 +92,9 @@ else{
                 <th>
                     @Html.DisplayNameFor(model => model.CostRequests[0].ReviewerId)
                 </th>
-                @* <th>
-                    @Html.DisplayNameFor(model => model.RequestComment)
-                </th> *@
+                 <th>
+                    @Html.DisplayNameFor(model => model.CostRequests[0].RequestComment)
+                </th> 
                 <th></th>
             </tr>
         </thead>
@@ -115,12 +114,12 @@ else{
                     <td>
                         @Html.DisplayFor(modelItem => item.Project.ProjectName)
                     </td>
-                    @*        <td>
+                           <td>
                         @Html.DisplayFor(modelItem => item.Employee.FirstName) @Html.DisplayFor(modelItem => item.Employee.LastName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Period.Name)
-                    </td> *@
+                    </td> 
                     <td>
                         @Html.DisplayFor(modelItem => item.Amount)
                     </td>
@@ -137,9 +136,9 @@ else{
                     <td>
                         @Html.DisplayFor(modelItem => item.Reviewer.FirstName) @Html.DisplayFor(modelItem => item.Reviewer.LastName)
                     </td>
-                    @* <td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.RequestComment)
-                    </td> *@
+                    </td> 
                     <td>
                         @if (item.CostRequestStatus.Name == "Pending")
                         {

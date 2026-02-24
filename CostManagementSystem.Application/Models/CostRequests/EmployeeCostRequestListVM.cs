@@ -14,7 +14,7 @@ namespace CostManagementSystem.Application.Models.CostRequests
         public int RejectedRequests { get; set; }
         [Display(Name = "Cost Requests")]
         public List<CostRequestReadOnlyVM> CostRequests { get; set; } = new List<CostRequestReadOnlyVM>();
-
+        // TODO: doplnit další vlastnosti, které by mohly být užitečné pro zobrazení seznamu nákladových požadavků zaměstnance, např. filtrování podle období, projektu apod.
 
     }
 }
