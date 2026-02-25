@@ -177,4 +177,15 @@ public class CostApprovalController(ICostApprovalService _costApprovalService, A
         await _costApprovalService.Remove(id);
         return RedirectToAction(nameof(Index));
     }
+
+    public async Task ReviewAsync(int id, bool isApproved)
+    {
+        var entity = await _context.CostApprovals.FirstOrDefaultAsync(x => x.Id == id);
+        if (entity == null) throw new Exception("Cost approval not found");
+
+        entity.Status = isApproved ? Status.Approved : Status.Rejected;
+
+        await _context.SaveChangesAsync();
+    }
+
 }

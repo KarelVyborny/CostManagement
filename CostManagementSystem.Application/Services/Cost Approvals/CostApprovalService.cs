@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using CostManagementSystem.Data;
 using CostManagementSystem.Application.Models.CostApproval;
+using CostManagementSystem.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CostManagementSystem.Application.Services.Cost_Approval_Workflow;
@@ -49,8 +50,18 @@ public class CostApprovalService(ApplicationDbContext _context, IMapper _mapper)
             _context.Add(costApproval);
             await _context.SaveChangesAsync();
         }
-
     }
+    public async Task ReviewAsync(int id, bool isApproved)
+    {
+        var entity = await _context.CostApprovals.FirstOrDefaultAsync(x => x.Id == id);
+        if (entity == null)
+            throw new Exception("Cost approval not found");
+
+        entity.Status = isApproved ? Status.Approved : Status.Rejected;
+
+        await _context.SaveChangesAsync();
+    }
+
 
 
 
@@ -99,4 +110,11 @@ public class CostApprovalService(ApplicationDbContext _context, IMapper _mapper)
         _context.Remove(data);
         await _context.SaveChangesAsync();
     }
+
+  
+
+    //public Task ReviewAsync(int id, bool isApproved)
+    //{
+    //    throw new NotImplementedException();
+    //}
 }

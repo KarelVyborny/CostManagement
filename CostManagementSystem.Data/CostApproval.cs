@@ -22,6 +22,8 @@
         public decimal Amount { get; set; }
         public decimal VAT { get; set; }
         public Status Status { get; set; } = Status.Pending;
+        public int CostRequestId { get; set; }
+        public CostRequest CostRequest { get; set; }
     }
 
     public enum Status

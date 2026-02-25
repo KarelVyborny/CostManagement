@@ -11,5 +11,8 @@ namespace CostManagementSystem.Application.Services.Cost_Approval_Workflow
         Task EditAsync(CostApprovalEditVM costApprovalEdit);
         Task Remove(int id);
 
+        Task ReviewAsync(int id, bool isApproved);
+
+
     }
 }

@@ -6,29 +6,35 @@
 @{
 }
 
-<h3> Cost Request Review</h3>
 
-<div class="table-responsive">
-    <table class="table">
+        <h3>Cost Request Review</h3>
 
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.CostCode)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.CostCode)</dd>
 
-        <tbody>
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.CostCode)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.CostCode)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-            </dl>
-        </tbody>
-    </table>
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Name)</dt> 
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Name)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.CostDate)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.CostDate)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Project)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Project)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Employee)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Employee)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Period)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Period)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Amount)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Amount)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.VAT)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.VAT)</dd>
+        </dl>
+   
     <div class="row">
         <div class="col">
             <button type="button" class="btn btn-outline-dark approvalBtn" data-id="@Model.Id" data-approved="true">Approve</button>
@@ -40,35 +46,29 @@
         </div>
        
     </div>
-</div>
-<form id="approvalForm" asp-action="Review">
+@* <form id="approvalForm" asp-action="Review" method="post">
+    @Html.AntiForgeryToken()
     <input type="hidden" id="costRequestId" name="costRequestId" />
     <input type="hidden" id="isApproved" name="isApproved" />
+</form> *@
+
+<form id="approvalForm" asp-controller="CostRequest" asp-action="Review" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="costRequestId" name="costRequestId" value="@Model.Id" />
+    <input type="hidden" id="isApproved" name="isApproved" />
 </form>
+
 @section Scripts
 {
     <script>
-    $(function () {
-        $(".approvalBtn").click(
-            function (e) {
-           swal({
-               title:"Are you sure?",
-               text:"Please, confirm the approval decision",
-               icon:"warning",
-               buttons:true,
-               dangerMode:true
-               }).then((confirm) => {
-                  if(confirm){
-                       var btn = $(this);
-                       var id = btn.data("id");
-                            var isApproved = btn.data("approved");
-                       $("#costRequestId").val(id);
-                            $("#isApproved").val(isApproved);
-                        $("#approvalForm").submit();
-                  }
-           });
+        $(function () {
+          $(".approvalBtn").click(function () {
+            var btn = $(this);
+            $("#costRequestId").val(btn.data("id"));
+            $("#isApproved").val(btn.data("approved"));
+            $("#approvalForm").submit();
+          });
         });
-    });
     </script>
     }
 

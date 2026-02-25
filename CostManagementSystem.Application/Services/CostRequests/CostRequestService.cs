@@ -85,16 +85,13 @@ namespace CostManagementSystem.Application.Services.CostRequests
             {
                 Id = costRequest.Id,
                 Name = costRequest.Name,
-                CostCodeId = costRequest.CostCodeId,
+                CostCode = costRequest.CostCode?.CostName,
                 CostDate = costRequest.CostDate,
-                ProjectId = costRequest.ProjectId,
-                EmployeeId = costRequest.EmployeeId,
-                PeriodId = costRequest.PeriodId,
+                Project = costRequest.Project?.ProjectName,
+                Employee = costRequest.Employee == null ? null : $"{costRequest.Employee.FirstName} {costRequest.Employee.LastName}",
+                Period = costRequest.Period?.Name,
                 Amount = costRequest.Amount,
                 VAT = costRequest.VAT,
-                CostRequestStatusId = costRequest.CostRequestStatusId,
-                RequestorId = costRequest.RequestorId,
-                ReviewerId = costRequest.ReviewerId,
                 RequestComment = costRequest.RequestComment
             };
             return model;
