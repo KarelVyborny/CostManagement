@@ -1,0 +1,19 @@
+﻿/* wwwroot/css/costrequests.css */
+#reqTable th,
+#reqTable td {
+    white-space: nowrap; /* nezalamovat */
+}
+
+#reqTable {
+    font-size: 0.85rem; /* menší písmo */
+}
+
+    #reqTable th,
+    #reqTable td {
+        padding: 0.3rem 0.5rem; /* menší padding */
+    }
+.action-col {
+    width: 1%;
+    white-space: nowrap;
+    text-align: center;
+}

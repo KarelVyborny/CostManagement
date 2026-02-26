@@ -127,19 +127,19 @@ namespace CostManagementSystem.Web.Areas.Identity.Pages.Account
                 user.LastName = Input.LastName;
                 user.DateOfBirth = Input.DateOfBirth;
                 var result = await _userManager.CreateAsync(user, Input.Password);
-
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    if (Input.RoleName == "Supervisor")
+                    //if (Input.RoleName == "Supervisor")
 
-                    {
-                        await _userManager.AddToRolesAsync(user, ["user", "Supervisor"]);
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, "user");
-                    }
+                    //{
+                    //    await _userManager.AddToRolesAsync(user, ["user", "Supervisor"]);
+                    //}
+                    //else
+                    //{
+                    //    await _userManager.AddToRoleAsync(user, "user");
+                    //}
+                    await _userManager.AddToRoleAsync(user, "User");
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

@@ -47,20 +47,31 @@ namespace CostManagementSystem.Application.Services.CostRequests
             await _context.SaveChangesAsync();
         }
 
-        public async Task<EmployeeCostRequestListVM> AdminGetEmployeeCostRequest()
+        public async Task<EmployeeCostRequestListVM> AdminGetEmployeeCostRequest(string sortOrder)
         {
-            var costRequest = await _context.CostRequests
-                 .Include(q => q.CostCode)
-                 .Include(q => q.Period)
-                 .Include(q => q.Employee)
-                 .Include(q => q.Project)
-                 .Include(q => q.CostRequestStatus)
-                 .ToListAsync();
+            var query = _context.CostRequests
+                .Include(q => q.CostCode)
+                .Include(q => q.Period)
+                .Include(q => q.Employee)
+                .Include(q => q.Project)
+                .Include(q => q.CostRequestStatus)
+                .AsQueryable();
 
+            query = sortOrder switch
+            {
+                "name_desc" => query.OrderByDescending(q => q.Name),
+                "date" => query.OrderBy(q => q.CostDate),
+                "date_desc" => query.OrderByDescending(q => q.CostDate),
+                "amount" => query.OrderBy(q => q.Amount),
+                "amount_desc" => query.OrderByDescending(q => q.Amount),
+                _ => query.OrderBy(q => q.Name)
+            };
 
+            var costRequest = await query.ToListAsync();
 
-            var viewdata = _mapper.Map<List<CostRequest>, List<CostRequestReadOnlyVM>>(costRequest);
-            var model = new EmployeeCostRequestListVM
+            var viewdata = _mapper.Map<List<CostRequestReadOnlyVM>>(costRequest);
+
+            return new EmployeeCostRequestListVM
             {
                 TotalRequests = viewdata.Count,
                 PendingRequests = viewdata.Count(q => q.CostRequestStatusId == (int)CostRequestStatusEnum.Pending),
@@ -68,7 +79,6 @@ namespace CostManagementSystem.Application.Services.CostRequests
                 RejectedRequests = viewdata.Count(q => q.CostRequestStatusId == (int)CostRequestStatusEnum.Rejected),
                 CostRequests = viewdata
             };
-            return model;
         }
 
         public async Task<ReviewCostRequestVM> GetCostRequestForReview(int id)

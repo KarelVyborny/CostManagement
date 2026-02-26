@@ -314,7 +314,7 @@ namespace CostManagementSystem.Data.Migrations
                         new
                         {
                             Id = 3,
-                            Name = "Declined"
+                            Name = "Rejected"
                         },
                         new
                         {

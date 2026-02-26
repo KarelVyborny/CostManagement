@@ -9,7 +9,7 @@ public class CostRequestStatusConfiguration : IEntityTypeConfiguration<CostReque
         builder.HasData(
             new CostRequestStatus { Id = 1, Name = "Pending" },
             new CostRequestStatus { Id = 2, Name = "Approved" },
-            new CostRequestStatus { Id = 3, Name = "Declined" },
+            new CostRequestStatus { Id = 3, Name = "Rejected" },
             new CostRequestStatus { Id = 4, Name = "Canceled" }
 
 );

@@ -156,11 +156,18 @@ public async Task<IActionResult> Review(int id)
 
         }
         //admin
-        public async Task<IActionResult> ListRequests()
+        public async Task<IActionResult> ListRequests(string sortOrder)
         {
-            var CostRequests = await _costRequestService.AdminGetEmployeeCostRequest();
-            return View(CostRequests);
+            //ViewData["NameSort"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            //ViewData["ProjectSort"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            //ViewData["EmployeeSort"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            //ViewData["DateSort"] = sortOrder == "date" ? "date_desc" : "date";
+            //ViewData["AmountSort"] = sortOrder == "amount" ? "amount_desc" : "amount";
+
+            var model = await _costRequestService.AdminGetEmployeeCostRequest(sortOrder);
+            return View(model);
         }
+        
         public IActionResult Approve(int CostRequestId)
         {
             return View();

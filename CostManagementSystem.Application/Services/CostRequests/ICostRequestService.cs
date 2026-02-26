@@ -1,4 +1,5 @@
 ﻿using CostManagementSystem.Application.Models.CostRequests;
+using Microsoft.Data.SqlClient;
 
 namespace CostManagementSystem.Application.Services.CostRequests
 {
@@ -10,7 +11,7 @@ namespace CostManagementSystem.Application.Services.CostRequests
 
         Task CancelCostRequest(int costRequestId);
 
-        Task<EmployeeCostRequestListVM> AdminGetEmployeeCostRequest();
+        Task<EmployeeCostRequestListVM> AdminGetEmployeeCostRequest(string sortOrder);
         Task<ReviewCostRequestVM> GetCostRequestForReview(int id);
         Task ReviewCostRequest(int costRequestId, bool approved);
     }

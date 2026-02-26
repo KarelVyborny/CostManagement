@@ -6,6 +6,7 @@ using CostManagementSystem.Application.Services.Projects;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Reflection;
+using CostManagementSystem.Data.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+using (var scope = app.Services.CreateScope())
+{
+    await IdentitySeeder.SeedAsync(scope.ServiceProvider);
+}
 
 app.MapControllerRoute(
     name: "default",

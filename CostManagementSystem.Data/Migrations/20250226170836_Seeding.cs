@@ -366,7 +366,7 @@ namespace CostManagementSystem.Data.Migrations
                 {
                     { 1, "Pending" },
                     { 2, "Approved" },
-                    { 3, "Declined" },
+                    { 3, "Rejected" },
                     { 4, "Canceled" }
                 });
 

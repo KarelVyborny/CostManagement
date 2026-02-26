@@ -1,4 +1,5 @@
 ﻿@model EmployeeCostRequestListVM
+@using CostManagementSystem.Application.Models.CostRequests
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -50,119 +51,89 @@
                 <hr/>
 <h2>Cost Requests</h2>
 <hr/>
-@if(Model.CostRequests.Count==0)
-{<div class="alert alert-info">
-    <h4> there are no request at this time</h4>
-
-</div>}
-else{
-<div class="table-responsive">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CostRequests[0].Name)
-                </th>
-                <th>
-                    Cost
-                </th>
-                <th>
-                    Date
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CostRequests[0].Project)
-                </th>
-                <th>
-                        @Html.DisplayNameFor(model => model.CostRequests[0].Employee)
-                </th>
-                <th>
-                        @Html.DisplayNameFor(model => model.CostRequests[0].Period) 
-                </th>                 <th>
-                    @Html.DisplayNameFor(model => model.CostRequests[0].Amount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CostRequests[0].VAT)
-                </th>
-                <th>
-                    Status
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CostRequests[0].RequestorId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CostRequests[0].ReviewerId)
-                </th>
-                  
-                 <th>
-                    @Html.DisplayNameFor(model => model.CostRequests[0].RequestComment)
-                </th> 
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-                @foreach (var item in Model.CostRequests)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CostCode.CostName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CostDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Project.ProjectName)
-                    </td>
-                           <td>
-                        @Html.DisplayFor(modelItem => item.Employee.FirstName) @Html.DisplayFor(modelItem => item.Employee.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Period.Name)
-                    </td> 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.VAT)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CostRequestStatus.Name)
-
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Requestor.FirstName) @Html.DisplayFor(modelItem => item.Requestor.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Reviewer.FirstName) @Html.DisplayFor(modelItem => item.Reviewer.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RequestComment)
-                    </td> 
-                    <td>
-                        @if (item.CostRequestStatus.Name == "Pending")
-                        {
-                                <a asp-action="Review" asp-route-id="@item.Id" class="btn btn-outline-primary">Review</a>
-
-                            @*        <form asp-action="Cancel">
-                                <input type="hidden" asp-for="@item.Id" name="id"/>
-                                <input type="submit" value="Cancel" class="btn btn-outline-danger" />
-
-                            </form> *@
-                        }
-                       @*  <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
-                        <a asp-action="Approve" asp-route-id="@item.Id" method="post">
-                            <button type="submit" class="btn btn-outline-success">Approve</button> *@
-                       @*  </a> *@
-
-
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+@if (Model.CostRequests.Count == 0)
+{
+    <div class="alert alert-info">
+        <h4>there are no request at this time</h4>
+    </div>
 }
+else
+{
+    <div class="table-responsive">
+        <table id="reqTable" class="table table-striped table-sm">
+            <thead class="thead-dark">
+                <tr>
+                   
+                    <th class="action-col"></th>
+                    <th>Name</th>
+                    <th>Cost</th>
+                    <th>Date</th>
+                    <th>Project</th>
+                    <th>@Html.DisplayNameFor(m => m.CostRequests[0].Employee)</th>
+                    <th>@Html.DisplayNameFor(m => m.CostRequests[0].Period)</th>
+                    <th>Amount</th>
+                    <th>@Html.DisplayNameFor(m => m.CostRequests[0].VAT)</th>
+                    <th>Status</th>
+                    <th>@Html.DisplayNameFor(m => m.CostRequests[0].RequestorId)</th>
+                    <th>@Html.DisplayNameFor(m => m.CostRequests[0].ReviewerId)</th>
+                    <th>@Html.DisplayNameFor(m => m.CostRequests[0].RequestComment)</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CostRequests)
+                {
+                    <tr>
+                        <td>
+                            @if (item.CostRequestStatus?.Name == "Pending")
+                            {
+                                <a asp-action="Review" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Review</a>
+                            }
+                            else
+                                
+                                {
+                                    <a asp-action="Review" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">Change</a>
+                                }
+                        </td>
+                        <td>@item.Name</td>
+                        <td>@item.CostCode?.CostName</td>
+                        <td>@item.CostDate</td>
+                        <td>@item.Project?.ProjectName</td>
+                        <td>@item.Employee?.FirstName @item.Employee?.LastName</td>
+                        <td>@item.Period?.Name</td>
+                        <td>@item.Amount</td>
+                        <td>@item.VAT</td>
+                        <td>@item.CostRequestStatus?.Name</td>
+                        <td>@item.Requestor?.FirstName @item.Requestor?.LastName</td>
+                        <td>@item.Reviewer?.FirstName @item.Reviewer?.LastName</td>
+                        <td>@item.RequestComment</td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/costrequests.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script>
+         $('#reqTable').DataTable({
+            order: [],
+            pageLength: 25,
+            scrollX: false,
+            autoWidth: false,
+            columnDefs: [
+                { orderable: false, targets: -1 },
+                { width: "80px", targets: -1 }
+            ]
+        });
+    </script>
+}
+
+    
